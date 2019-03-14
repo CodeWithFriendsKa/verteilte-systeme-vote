@@ -5,6 +5,7 @@
  */
 package de.dhbw.vote.ejb.common;
 
+import de.dhbw.vote.jpa.User;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -43,10 +44,10 @@ public abstract class EntityBean<Entity, EntityId> {
         em.remove(entity);
     }
     public void deleteAll(){
-        var users = this.findAll();
+        List<User> users = (List<User>) this.findAll();
         users.forEach(e -> {
         System.out.println("delete user: " + e.toString());
-        this.delete(e);
+        this.delete((Entity) e);
         });
     }
 }
