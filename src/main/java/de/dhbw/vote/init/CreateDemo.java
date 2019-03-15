@@ -7,7 +7,6 @@ package de.dhbw.vote.init;
 
 import de.dhbw.vote.ejb.UserBean;
 import de.dhbw.vote.jpa.User;
-import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
@@ -35,7 +34,7 @@ public class CreateDemo {
         
         userBean.deleteAll();
         
-        List<User> users = userBean.findAll();
+        var users = userBean.findAll();
         
         System.out.println("user size" + users.size());
         

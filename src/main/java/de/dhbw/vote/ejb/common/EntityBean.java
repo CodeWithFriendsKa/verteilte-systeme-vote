@@ -44,10 +44,10 @@ public abstract class EntityBean<Entity, EntityId> {
         em.remove(entity);
     }
     public void deleteAll(){
-        List<User> users = (List<User>) this.findAll();
+        var users = this.findAll();
         users.forEach(e -> {
         System.out.println("delete user: " + e.toString());
-        this.delete((Entity) e);
+        this.delete(e);
         });
     }
 }
