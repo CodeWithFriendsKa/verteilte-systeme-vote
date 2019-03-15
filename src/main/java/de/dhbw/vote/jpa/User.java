@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 /**
@@ -20,6 +22,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name= "VOTE_USER")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,6 +56,8 @@ public class User implements Serializable {
     public void setUsername(String username) {this.username = username;}
     public void setMail(String mail) {this.mail = mail;}
     public void setPassword(String password) {this.password = password;}
+    
+    //to do Passwort hashen
     
     @Override
     public String toString() {
