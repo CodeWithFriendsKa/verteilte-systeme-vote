@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package de.dhbw.vote.jpa;
+package de.dhbw.vote.voting.jpa;
 
+import de.dhbw.vote.common.jpa.Voter;
 import java.awt.Image;
 import java.io.Serializable;
 import java.time.LocalDateTime;

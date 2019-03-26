@@ -3,20 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package de.dhbw.vote.ejb;
+package de.dhbw.vote.voting.ejb;
 
-import de.dhbw.vote.ejb.common.EntityBean;
-import de.dhbw.vote.jpa.Voter;
+import de.dhbw.vote.common.ejb.EntityBean;
+import de.dhbw.vote.voting.jpa.UpDownVote;
 import javax.ejb.Stateless;
-
 
 /**
  *
  * @author codekeks
  */
 @Stateless
-public class VoterBean extends EntityBean<Voter, Long>{
-    public VoterBean(){
-        super(Voter.class);
+public class UpDownVoteBean extends EntityBean<UpDownVote, Long>{
+    public UpDownVoteBean(){
+        super(UpDownVote.class);
     }
+    
+    
 }

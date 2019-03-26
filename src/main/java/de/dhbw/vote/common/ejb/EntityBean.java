@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package de.dhbw.vote.ejb.common;
+package de.dhbw.vote.common.ejb;
 
-import de.dhbw.vote.jpa.User;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -44,9 +43,8 @@ public abstract class EntityBean<Entity, EntityId> {
         em.remove(entity);
     }
     public void deleteAll(){
-        List<User> users = (List<User>) this.findAll();
-        users.forEach(e -> {
-        System.out.println("delete user: " + e.toString());
+        this.findAll().forEach(e -> {
+        System.out.println("delete: " + e.toString());
         this.delete((Entity) e);
         });
     }
