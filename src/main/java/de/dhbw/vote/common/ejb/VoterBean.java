@@ -20,16 +20,15 @@ public class VoterBean extends EntityBean<Voter, Long>{
     }
     
     public Voter findByUserName(String username) throws VoterNotFoundException {
-        try{
-            Voter voter = (Voter) em.createQuery("SELECT v FROM VOTER v WHERE v.username = :userName")
-                 .setParameter("userName", username)
-                 .getSingleResult();
+        Voter voter = (Voter) em.createQuery("SELECT v FROM Voter v WHERE v.username = :userName")
+             .setParameter("userName", username)
+             .getSingleResult();
         
-            return voter;
+        if(voter == null){
+            throw new VoterNotFoundException("There is no user with the username: " + username);
         }
-        catch(Exception e){
-            throw new VoterNotFoundException("Voter not found",e);
-        }
+        
+        return voter;
     }
     
     

@@ -45,18 +45,28 @@ public class UpDownVote implements Serializable  {
     private List<Voter> downVotes;
     @Column(name = "IMAGE") 
     private Image image;
-    @Column(name = "DATE")
+    @Column(name = "DATETIME")
     private LocalDateTime dateTime;
     @Column(name = "CATEGORY")
     private Category category;
 
-    public UpDownVote(String description, Voter creator, List<Voter> upVotes, List<Voter> downVotes, Image image, LocalDateTime dateTime, Category category) {
+    public UpDownVote(String description, Voter creator, List<Voter> upVotes, List<Voter> downVotes, Image image, Category category) {
         this.description = description;
         this.creator = creator;
         this.upVotes = upVotes;
         this.downVotes = downVotes;
         this.image = image;
-        this.dateTime = dateTime;
+        this.dateTime = LocalDateTime.now();
+        this.category = category;
+    }
+    
+    public UpDownVote(String description, Voter creator, Category category) {
+        this.description = description;
+        this.creator = creator;
+        this.upVotes = new ArrayList();
+        this.downVotes = new ArrayList();
+        this.image = null;
+        this.dateTime = LocalDateTime.now();
         this.category = category;
     }
 
@@ -66,7 +76,7 @@ public class UpDownVote implements Serializable  {
         this.upVotes = new ArrayList<>();
         this.downVotes = new ArrayList<>();
         this.image = null;
-        this.dateTime = null;
+        this.dateTime = LocalDateTime.now();
         this.category = Category.UNBEKANNT;
     }
 
