@@ -1,26 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package de.dhbw.vote.common.ejb;
 
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
-/**
- *
- * @author codekeks
- * @param <Entity>
- * @param <EntityId>
+/***
+ * Trippleprogramming
+ * @author Rouven Brost
+ * @author Christopher Pschibila
+ * @author codekeks (Tamino Fischer)
  */
 public abstract class EntityBean<Entity, EntityId> {
-
     @PersistenceContext
     protected EntityManager em;
     private final Class<Entity> entityClass;
-
     public EntityBean(Class<Entity> entityClass) {
         this.entityClass = entityClass;
     }

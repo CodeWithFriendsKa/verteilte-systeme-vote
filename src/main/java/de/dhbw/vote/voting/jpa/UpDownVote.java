@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package de.dhbw.vote.voting.jpa;
 
 import de.dhbw.vote.common.jpa.Voter;
@@ -20,10 +15,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-/**
- *
- * @author chp
+/***
+ * Trippleprogramming
+ * @author Rouven Brost
+ * @author Christopher Pschibila
+ * @author codekeks (Tamino Fischer)
  */
 @Entity
 @Table(name= "UP_DOWN_VOTE")
@@ -59,7 +55,15 @@ public class UpDownVote implements Serializable  {
         this.dateTime = LocalDateTime.now();
         this.category = category;
     }
-    
+    public UpDownVote(String description, Voter creator, List<Voter> upVotes, List<Voter> downVotes) {
+        this.description = description;
+        this.creator = creator;
+        this.upVotes = upVotes;
+        this.downVotes = downVotes;
+        this.image = null;
+        this.dateTime = LocalDateTime.now();
+        this.category = Category.UNBEKANNT;
+    }    
     public UpDownVote(String description, Voter creator, Category category) {
         this.description = description;
         this.creator = creator;

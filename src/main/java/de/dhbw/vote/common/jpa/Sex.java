@@ -1,20 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package de.dhbw.vote.common.jpa;
-
-/**
- *
- * @author chp
+/***
+ * Trippleprogramming
+ * @author Rouven Brost
+ * @author Christopher Pschibila
+ * @author codekeks (Tamino Fischer)
  */
 public enum Sex {
     MÄNNLICH, WEIBLICH, DIVERS, UNBEKANNT;
-    
     /**
      * Bezeichnung ermitteln
-     *
      * @return Bezeichnung
      */
     public String getLabel() {
@@ -29,5 +23,4 @@ public enum Sex {
                 return this.toString();
         }
     }
-    
 }
