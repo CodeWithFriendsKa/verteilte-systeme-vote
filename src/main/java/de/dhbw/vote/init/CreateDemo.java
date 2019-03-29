@@ -5,7 +5,6 @@ import de.dhbw.vote.common.ejb.VoterBean;
 import de.dhbw.vote.common.jpa.Sex;
 import de.dhbw.vote.voting.jpa.UpDownVote;
 import de.dhbw.vote.common.jpa.Voter;
-import de.dhbw.vote.voting.jpa.Category;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -55,68 +54,44 @@ public class CreateDemo {
     }
     private void saveDemoVoter() throws DemoException{
         try{
-            Voter voter0 = voterBean.saveNew(new Voter(
-                "MaxiMax",
-                "abc@web.de",
-                "123456",
-                "Max",
-                "Mustermann",
-                12,
+            String prename = "Max";
+            String name = "Mustermann";
+            String username = "MaMu";
+                    
+            for (int i = 0; i < 10; i++) {
+                voterBean.saveNew(new Voter(
+                username + i,
+                username + i + "@dhbw.de",
+                "123",
+                prename + i,
+                name + i,
+                10 + i,
                 Sex.MÄNNLICH
-            ));
-            Voter voter1 = voterBean.saveNew(new Voter(
-                "MimiMin",
-                "def@web.de",
-                "123456",
-                "Mini",
-                "Mustermann",
-                11,
-                Sex.WEIBLICH
                 ));
-            Voter voter2 = voterBean.saveNew(new Voter(
-                "TobiTorsten",
-                "def@web.de",
-                "123456",
-                "Tobi",
-                "Torsten",
-                11,
-                Sex.WEIBLICH
-                ));            
-            System.out.println("save demo voter in database: " + voter0.toString());
-            System.out.println("save demo voter in database: " + voter1.toString());
+            }
         } catch (Exception e){
             throw new DemoException("DemoExeption",e);
         }
     }
     private void saveDemoUpDownVote() throws DemoException {
         try {
-            UpDownVote vote0 = upDownVoteBean.saveNew(new UpDownVote(
-                "Das erste Voting",
-                voterBean.findByUserName("MaxiMax"),
-                Category.AUTO
-            ));
-            UpDownVote vote1 = upDownVoteBean.saveNew(new UpDownVote(
-                    "Das zweite Voting",
-                    voterBean.findByUserName("MimiMin"),
-                    Category.SPORT
-            ));
-            UpDownVote vote2 = upDownVoteBean.saveNew(new UpDownVote(
-                    "Das dritte Voting",
-                    voterBean.findByUserName("MimiMin"),
-                    Category.HOT_OR_NOT
-            ));
-            UpDownVote vote3 = upDownVoteBean.saveNew(new UpDownVote(
-                    "Das vierte Voting",
-                    voterBean.findByUserName("MimiMin"),
-                    voterBean.findAll(),
-                    voterBean.findAll()
-            ));   
-            UpDownVote vote4 = upDownVoteBean.saveNew(new UpDownVote(
-                    "Das fünfte Voting",
-                    voterBean.findByUserName("MimiMin"),
-                    voterBean.findAll().subList(0, 1),
-                    voterBean.findAll().subList(0, 1)
-            ));           
+            List<Voter> voters = voterBean.findAll();
+            String description = "Voting Nummer: ";
+            int random = 0 + (int)(Math.random() * ((9 - 0) + 1));
+            
+            System.out.println("RAMDOM ZAHL: " + random);
+            
+            for (int i = 0; i < 20; i++) {
+                int random0 = 0 + (int)(Math.random() * ((9 - 0) + 1));
+                int random1 = random0 + (int)(Math.random() * ((9 - random0) + 1));
+                int random2 = random1 + (int)(Math.random() * ((9 - random1) + 1));
+                upDownVoteBean.saveNew(new UpDownVote(
+                description + i,
+                voters.get(0 + (int)(Math.random() * ((9 - 0) + 1))),
+                voters.subList(random0, random1),
+                voters.subList(random1, random2)
+                ));
+            }
         } catch (Exception e) {
             throw new DemoException("DemoException", e);
         }
@@ -133,7 +108,6 @@ public class CreateDemo {
         try {
             List<UpDownVote> upDowns = upDownVoteBean.findAll();
             upDowns.forEach(upDown -> System.out.println(upDown.toString()));
-            upDownVoteBean.findVotesByUsername("MimiMin").forEach(v ->System.out.println("findVotesByUsername: " + v.toString())); 
         } catch (Exception e) {
             throw new DemoException("DemoException", e);
         }
