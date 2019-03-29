@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -37,11 +38,16 @@ public class UpDownVote implements Serializable  {
     private Voter creator;
     @OneToMany
     private List<Voter> upVotes;
+    @Column(name = "UPSIZE")
+    private int upSize;
     @OneToMany
     private List<Voter> downVotes;
+    @Column(name = "DOWNSIZE")
+    private int downSize;
     @Column(name = "IMAGE") 
     private Image image;
     @Column(name = "DATETIME")
+    @Convert(converter = LocalDateTimeAttributeConverter.class)
     private LocalDateTime dateTime;
     @Column(name = "CATEGORY")
     private Category category;
@@ -50,7 +56,9 @@ public class UpDownVote implements Serializable  {
         this.description = description;
         this.creator = creator;
         this.upVotes = upVotes;
+        this.upSize = upVotes.size();
         this.downVotes = downVotes;
+        this.downSize = downVotes.size();
         this.image = image;
         this.dateTime = LocalDateTime.now();
         this.category = category;
@@ -59,7 +67,9 @@ public class UpDownVote implements Serializable  {
         this.description = description;
         this.creator = creator;
         this.upVotes = upVotes;
+        this.upSize = upVotes.size();
         this.downVotes = downVotes;
+        this.downSize = downVotes.size();
         this.image = null;
         this.dateTime = LocalDateTime.now();
         this.category = Category.UNBEKANNT;
@@ -68,7 +78,9 @@ public class UpDownVote implements Serializable  {
         this.description = description;
         this.creator = creator;
         this.upVotes = new ArrayList();
+        this.upSize = 0;
         this.downVotes = new ArrayList();
+        this.downSize = 0;
         this.image = null;
         this.dateTime = LocalDateTime.now();
         this.category = category;
@@ -78,7 +90,9 @@ public class UpDownVote implements Serializable  {
         this.description = "";
         this.creator = new Voter();
         this.upVotes = new ArrayList<>();
+        this.upSize = 0;
         this.downVotes = new ArrayList<>();
+        this.downSize = 0;
         this.image = null;
         this.dateTime = LocalDateTime.now();
         this.category = Category.UNBEKANNT;
@@ -91,9 +105,9 @@ public class UpDownVote implements Serializable  {
     public Voter getCreator() {return creator;}
     public void setCreator(Voter creator) {this.creator = creator;}
     public List<Voter> getUpVotes() {return upVotes;}
-    public void setUpVotes(List<Voter> upVotes) {this.upVotes = upVotes;}
+    public void setUpVotes(List<Voter> upVotes) {this.upVotes = upVotes; this.upSize = this.upVotes.size();}
     public List<Voter> getDownVotes() {return downVotes;}
-    public void setDownVotes(List<Voter> downVotes) {this.downVotes = downVotes;}
+    public void setDownVotes(List<Voter> downVotes) {this.downVotes = downVotes; this.downSize = this.downVotes.size();}
     public Image getImage() {return image;}
     public void setImage(Image image) {this.image = image;}
     public LocalDateTime getDateTime() {return dateTime;}

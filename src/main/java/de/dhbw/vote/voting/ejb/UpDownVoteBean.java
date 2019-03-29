@@ -5,6 +5,7 @@ import de.dhbw.vote.common.ejb.VoterBean;
 import de.dhbw.vote.common.ejb.VoterNotFoundException;
 import de.dhbw.vote.common.jpa.Voter;
 import de.dhbw.vote.voting.jpa.UpDownVote;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -31,44 +32,104 @@ public class UpDownVoteBean extends EntityBean<UpDownVote, Long>{
                 .getResultList();
         return votes;
     }
-    public UpDownVote findBestVoteAllTime(){
-        UpDownVote vote = (UpDownVote) em.createQuery("").getSingleResult();
-               
-        return new UpDownVote();
+    public List<UpDownVote> findBestVoteAllTime(){
+        List<UpDownVote> votes = new ArrayList();
+        
+        votes = (List<UpDownVote>) em.createQuery(""
+                + " SELECT v FROM UpDownVote v "
+                + " WHERE v.upSize = "
+                + " (SELECT Max(x.upSize) FROM UpDownVote x)")
+                .getResultList();
+        
+        return votes;
     }
-    public UpDownVote findWorstVoteAllTime(){
-        UpDownVote vote = (UpDownVote) em.createQuery("").getSingleResult();
-               
-        return new UpDownVote();
+    public List<UpDownVote> findWorstVoteAllTime(){
+        List<UpDownVote> votes = new ArrayList();
+        
+        votes = (List<UpDownVote>) em.createQuery(""
+                + " SELECT v FROM UpDownVote v "
+                + " WHERE v.downSize = "
+                + " (SELECT Max(x.downSize) FROM UpDownVote x)")
+                .getResultList();
+        
+        return votes;
     }
-    public UpDownVote findBestVoteOfMonth(){
-        UpDownVote vote = (UpDownVote) em.createQuery("").getSingleResult();
-               
-        return new UpDownVote();
+    public List<UpDownVote> findBestVoteOfMonth(){
+        List<UpDownVote> votes = new ArrayList();
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime lastMonth = now.minusMonths(1);
+        
+        votes = (List<UpDownVote>) em.createQuery(""
+                + " SELECT v FROM UpDownVote v "
+                + " WHERE v.upSize = "
+                + " (SELECT Max(x.upSize) FROM UpDownVote x) "
+        ).getResultList();
+        
+        return votes;
     }
-    public UpDownVote findWorstVoteOfMonth(){
-        UpDownVote vote = (UpDownVote) em.createQuery("").getSingleResult();
-               
-        return new UpDownVote();
+    public List<UpDownVote> findWorstVoteOfMonth(){
+        List<UpDownVote> votes = new ArrayList();
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime lastMonth = now.minusMonths(1);
+        
+        votes = (List<UpDownVote>) em.createQuery(""
+                + " SELECT v FROM UpDownVote v "
+                + " WHERE v.downSize = "
+                + " (SELECT Max(x.downSize) FROM UpDownVote x) ")
+                .getResultList();
+        
+        return votes;
     }    
-    public UpDownVote findBestVoteOfWeek(){
-        UpDownVote vote = (UpDownVote) em.createQuery("").getSingleResult();
-               
-        return new UpDownVote();
+    public List<UpDownVote> findBestVoteOfWeek(){
+        List<UpDownVote> votes = new ArrayList();
+        LocalDateTime end = LocalDateTime.now();
+        LocalDateTime start = end.minusWeeks(1);
+        
+        votes = (List<UpDownVote>) em.createQuery(""
+                + " SELECT v FROM UpDownVote v "
+                + " WHERE v.upSize = "
+                + " (SELECT Max(x.upSize) FROM UpDownVote x) ")
+                .getResultList();
+        
+        return votes;
     }
-    public UpDownVote findWorstVoteOfWeek(){
-        UpDownVote vote = (UpDownVote) em.createQuery("").getSingleResult();
-               
-        return new UpDownVote();
+    public List<UpDownVote> findWorstVoteOfWeek(){
+        List<UpDownVote> votes = new ArrayList();
+        LocalDateTime end = LocalDateTime.now();
+        LocalDateTime start = end.minusWeeks(1);
+        
+        votes = (List<UpDownVote>) em.createQuery(""
+                + " SELECT v FROM UpDownVote v "
+                + " WHERE v.downSize = "
+                + " (SELECT Max(x.downSize) FROM UpDownVote x) ")
+                .getResultList();
+        
+        return votes;
     } 
-    public UpDownVote findBestVoteOfDay(){
-        UpDownVote vote = (UpDownVote) em.createQuery("").getSingleResult();
-               
-        return new UpDownVote();
+    public List<UpDownVote> findBestVoteOfDay(){
+        List<UpDownVote> votes = new ArrayList();
+        LocalDateTime end = LocalDateTime.now();
+        LocalDateTime start = end.minusDays(1);
+        
+        votes = (List<UpDownVote>) em.createQuery(""
+                + " SELECT v FROM UpDownVote v "
+                + " WHERE v.upSize = "
+                + " (SELECT Max(x.upSize) FROM UpDownVote x) ")
+                .getResultList();
+        
+        return votes;
     }
-    public UpDownVote findWorstVoteOfDay(){
-        UpDownVote vote = (UpDownVote) em.createQuery("").getSingleResult();
-               
-        return new UpDownVote();
+    public List<UpDownVote> findWorstVoteOfDay(){
+        List<UpDownVote> votes = new ArrayList();
+        LocalDateTime end = LocalDateTime.now();
+        LocalDateTime start = end.minusDays(1);
+        
+        votes = (List<UpDownVote>) em.createQuery(""
+                + " SELECT v FROM UpDownVote v "
+                + " WHERE v.downSize = "
+                + " (SELECT Max(x.downSize) FROM UpDownVote x) ")
+                .getResultList();
+        
+        return votes;
     }     
 }
