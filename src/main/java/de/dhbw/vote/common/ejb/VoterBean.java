@@ -1,5 +1,6 @@
 package de.dhbw.vote.common.ejb;
 
+import de.dhbw.vote.common.CustomLogger;
 import de.dhbw.vote.common.jpa.Voter;
 import javax.ejb.Stateless;
 /***
@@ -10,6 +11,7 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class VoterBean extends EntityBean<Voter, Long>{
+    private static final CustomLogger logger = new CustomLogger(VoterBean.class);
     public VoterBean(){
         super(Voter.class);
     }

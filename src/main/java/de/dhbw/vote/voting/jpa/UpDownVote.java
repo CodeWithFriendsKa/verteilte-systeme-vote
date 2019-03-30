@@ -3,12 +3,11 @@ package de.dhbw.vote.voting.jpa;
 import de.dhbw.vote.common.jpa.Voter;
 import java.awt.Image;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,10 +28,8 @@ public class UpDownVote implements Serializable  {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
     @Column(name = "DESCRIPTION")
     private String description;
-    
     @Column(name = "CREATOR")
     @ManyToOne
     private Voter creator;
@@ -46,9 +43,8 @@ public class UpDownVote implements Serializable  {
     private int downSize;
     @Column(name = "IMAGE") 
     private Image image;
-    @Column(name = "DATETIME")
-    @Convert(converter = LocalDateTimeAttributeConverter.class)
-    private LocalDateTime dateTime;
+    @Column(name = "VOTEDATE")
+    private VoteDate date;
     @Column(name = "CATEGORY")
     private Category category;
 
@@ -60,7 +56,7 @@ public class UpDownVote implements Serializable  {
         this.downVotes = downVotes;
         this.downSize = downVotes.size();
         this.image = image;
-        this.dateTime = LocalDateTime.now();
+        this.date = VoteDate.now();
         this.category = category;
     }
     public UpDownVote(String description, Voter creator, List<Voter> upVotes, List<Voter> downVotes) {
@@ -71,7 +67,7 @@ public class UpDownVote implements Serializable  {
         this.downVotes = downVotes;
         this.downSize = downVotes.size();
         this.image = null;
-        this.dateTime = LocalDateTime.now();
+        this.date = VoteDate.now();
         this.category = Category.UNBEKANNT;
     }    
     public UpDownVote(String description, Voter creator, Category category) {
@@ -82,7 +78,7 @@ public class UpDownVote implements Serializable  {
         this.downVotes = new ArrayList();
         this.downSize = 0;
         this.image = null;
-        this.dateTime = LocalDateTime.now();
+        this.date = VoteDate.now();
         this.category = category;
     }
 
@@ -94,7 +90,7 @@ public class UpDownVote implements Serializable  {
         this.downVotes = new ArrayList<>();
         this.downSize = 0;
         this.image = null;
-        this.dateTime = LocalDateTime.now();
+        this.date = VoteDate.now();
         this.category = Category.UNBEKANNT;
     }
 
@@ -110,14 +106,14 @@ public class UpDownVote implements Serializable  {
     public void setDownVotes(List<Voter> downVotes) {this.downVotes = downVotes; this.downSize = this.downVotes.size();}
     public Image getImage() {return image;}
     public void setImage(Image image) {this.image = image;}
-    public LocalDateTime getDateTime() {return dateTime;}
-    public void setDateTime(LocalDateTime dateTime) {this.dateTime = dateTime;}
+    public Date getDate() {return date;}
+    public void setDate(VoteDate date) {this.date = date;}
     public Category getCategory() {return category;}
     public void setCategory(Category category) {this.category = category;}
 
     @Override
     public String toString() {
-        return "UpDownVote{" + "id=" + id + ", description=" + description + ", creator=" + creator + ", upVotes=" + upVotes + ", downVotes=" + downVotes + ", image=" + image + ", dateTime=" + dateTime + ", category=" + category + '}';
+        return "UpDownVote{" + "id=" + id + ", description=" + description + ", creator=" + creator + ", upVotes=" + upVotes + ", downVotes=" + downVotes + ", image=" + image + ", date=" + date + ", category=" + category + '}';
     }
 
     @Override
@@ -129,7 +125,7 @@ public class UpDownVote implements Serializable  {
         hash = 13 * hash + Objects.hashCode(this.upVotes);
         hash = 13 * hash + Objects.hashCode(this.downVotes);
         hash = 13 * hash + Objects.hashCode(this.image);
-        hash = 13 * hash + Objects.hashCode(this.dateTime);
+        hash = 13 * hash + Objects.hashCode(this.date);
         hash = 13 * hash + Objects.hashCode(this.category);
         return hash;
     }
@@ -164,7 +160,7 @@ public class UpDownVote implements Serializable  {
         if (!Objects.equals(this.image, other.image)) {
             return false;
         }
-        if (!Objects.equals(this.dateTime, other.dateTime)) {
+        if (!Objects.equals(this.date, other.date)) {
             return false;
         }
         if (this.category != other.category) {

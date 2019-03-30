@@ -6,6 +6,7 @@ import de.dhbw.vote.common.ejb.VoterBean;
 import de.dhbw.vote.common.jpa.Sex;
 import de.dhbw.vote.voting.jpa.UpDownVote;
 import de.dhbw.vote.common.jpa.Voter;
+import de.dhbw.vote.voting.jpa.VoteDate;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -35,6 +36,9 @@ public class CreateDemo {
     @PostConstruct
     private void saveDemoData() {
         try {
+            
+            this.testUpDownVoteEjb();
+            
             logger.debug("DELETE OLD DEMODATA BEGIN");
             voterBean.deleteAll();
             upDownVoteBean.deleteAll();
@@ -108,4 +112,17 @@ public class CreateDemo {
             throw new DemoException("DemoException", e);
         }
     }
+    private void testUpDownVoteEjb() throws DemoException{
+        try {
+            logger.debug("TEST");
+            VoteDate voteDate = VoteDate.now();
+            logger.debug(voteDate.toString());
+            logger.debug(voteDate.getLastDay().toString());
+            logger.debug(voteDate.getLastWeek().toString());            
+            logger.debug(voteDate.getLastMonth().toString());             
+            logger.debug("TEST");
+        } catch (Exception e) {
+            throw new DemoException("DemoException", e);
+        }
+    }    
 }
