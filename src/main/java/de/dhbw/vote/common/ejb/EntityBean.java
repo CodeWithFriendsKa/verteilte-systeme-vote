@@ -1,5 +1,6 @@
 package de.dhbw.vote.common.ejb;
 
+import de.dhbw.vote.common.CustomLogger;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -10,11 +11,13 @@ import javax.persistence.PersistenceContext;
  * @author codekeks (Tamino Fischer)
  */
 public abstract class EntityBean<Entity, EntityId> {
+    private final CustomLogger logger;
     @PersistenceContext
     protected EntityManager em;
     private final Class<Entity> entityClass;
     public EntityBean(Class<Entity> entityClass) {
         this.entityClass = entityClass;
+        this.logger = new CustomLogger(entityClass);
     }
     public Entity findById(EntityId id) {
         return em.find(entityClass, id);
@@ -36,8 +39,8 @@ public abstract class EntityBean<Entity, EntityId> {
     }
     public void deleteAll(){
         this.findAll().forEach(e -> {
-        System.out.println("delete: " + e.toString());
-        this.delete((Entity) e);
+            logger.debug("delete: " + e.toString());
+            this.delete((Entity) e);
         });
     }
 }

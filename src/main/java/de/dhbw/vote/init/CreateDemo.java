@@ -1,5 +1,6 @@
 package de.dhbw.vote.init;
 
+import de.dhbw.vote.common.CustomLogger;
 import de.dhbw.vote.voting.ejb.UpDownVoteBean;
 import de.dhbw.vote.common.ejb.VoterBean;
 import de.dhbw.vote.common.jpa.Sex;
@@ -20,11 +21,11 @@ import javax.ejb.Startup;
 @Singleton
 public class CreateDemo {
     
+    private final CustomLogger logger = new CustomLogger(CreateDemo.class);
     @EJB
     private VoterBean voterBean;
     @EJB
-    private UpDownVoteBean upDownVoteBean;
-    
+    private UpDownVoteBean upDownVoteBean;  
     /**
      * This method makes the following steps:
      * 1) delete all demo data
@@ -34,22 +35,20 @@ public class CreateDemo {
     @PostConstruct
     private void saveDemoData() {
         try {
-            System.out.println("DELETE OLD DEMODATA BEGIN");
+            logger.debug("DELETE OLD DEMODATA BEGIN");
             voterBean.deleteAll();
             upDownVoteBean.deleteAll();
-            System.out.println("DELETE OLD DEMODATA END");
-            System.out.println("SAVE NEW DEMODATA IN DATABASE BEGIN");
+            logger.debug("DELETE OLD DEMODATA END");
+            logger.debug("SAVE NEW DEMODATA IN DATABASE BEGIN");
             saveDemoVoter();
             saveDemoUpDownVote();
-            System.out.println("SAVE NEW DEMODATA IN DATABASE END");                
-            System.out.println("SHOW ALL DEMODATA IN DATABASE BEGIN");
+            logger.debug("SAVE NEW DEMODATA IN DATABASE END");                
+            logger.debug("SHOW ALL DEMODATA IN DATABASE BEGIN");
             showDemoVoter();
             showDemoUpDownVote();
-            System.out.println("SHOW ALL DEMODATA IN DATABASE END");        
+            logger.debug("SHOW ALL DEMODATA IN DATABASE END");        
         } catch(DemoException e){
-            System.out.println(e.getMessage());
-            System.out.println(e.toString());
-            System.out.println(e.getStackTrace());
+            logger.error("Error while saving demo data", e);
         }
     }
     private void saveDemoVoter() throws DemoException{
@@ -78,9 +77,6 @@ public class CreateDemo {
             List<Voter> voters = voterBean.findAll();
             String description = "Voting Nummer: ";
             int random = 0 + (int)(Math.random() * ((9 - 0) + 1));
-            
-            System.out.println("RAMDOM ZAHL: " + random);
-            
             for (int i = 0; i < 20; i++) {
                 int random0 = 0 + (int)(Math.random() * ((9 - 0) + 1));
                 int random1 = random0 + (int)(Math.random() * ((9 - random0) + 1));
@@ -99,7 +95,7 @@ public class CreateDemo {
     private void showDemoVoter() throws DemoException{
         try {
             List<Voter> voters = voterBean.findAll();
-            voters.forEach(voter -> System.out.println(voter.toString()));
+            voters.forEach(voter -> logger.debug(voter.toString()));
         } catch (Exception e) {
             throw new DemoException("DemoExeption", e);
         }
@@ -107,7 +103,7 @@ public class CreateDemo {
     private void showDemoUpDownVote() throws DemoException{
         try {
             List<UpDownVote> upDowns = upDownVoteBean.findAll();
-            upDowns.forEach(upDown -> System.out.println(upDown.toString()));
+            upDowns.forEach(upDown -> logger.debug(upDown.toString()));
         } catch (Exception e) {
             throw new DemoException("DemoException", e);
         }
