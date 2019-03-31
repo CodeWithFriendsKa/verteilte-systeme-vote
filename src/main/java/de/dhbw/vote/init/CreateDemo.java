@@ -6,7 +6,8 @@ import de.dhbw.vote.common.ejb.VoterBean;
 import de.dhbw.vote.common.jpa.Sex;
 import de.dhbw.vote.voting.jpa.UpDownVote;
 import de.dhbw.vote.common.jpa.Voter;
-import de.dhbw.vote.voting.jpa.VoteDate;
+import de.dhbw.vote.voting.ejb.DateExtensions;
+import java.sql.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -35,10 +36,7 @@ public class CreateDemo {
      */
     @PostConstruct
     private void saveDemoData() {
-        try {
-            
-            this.testUpDownVoteEjb();
-            
+        try {           
             logger.debug("DELETE OLD DEMODATA BEGIN");
             voterBean.deleteAll();
             upDownVoteBean.deleteAll();
@@ -50,7 +48,9 @@ public class CreateDemo {
             logger.debug("SHOW ALL DEMODATA IN DATABASE BEGIN");
             showDemoVoter();
             showDemoUpDownVote();
-            logger.debug("SHOW ALL DEMODATA IN DATABASE END");        
+            logger.debug("SHOW ALL DEMODATA IN DATABASE END");   
+            
+            this.testUpDownVoteEjb();
         } catch(DemoException e){
             logger.error("Error while saving demo data", e);
         }
@@ -115,11 +115,14 @@ public class CreateDemo {
     private void testUpDownVoteEjb() throws DemoException{
         try {
             logger.debug("TEST");
-            VoteDate voteDate = VoteDate.now();
+            Date voteDate = DateExtensions.now();
             logger.debug(voteDate.toString());
-            logger.debug(voteDate.getLastDay().toString());
-            logger.debug(voteDate.getLastWeek().toString());            
-            logger.debug(voteDate.getLastMonth().toString());             
+            logger.debug(DateExtensions.getLastDay(voteDate).toString());
+            logger.debug(DateExtensions.getLastWeek(voteDate).toString());
+            logger.debug(DateExtensions.getLastMonth(voteDate).toString());
+            
+            logger.debug("Best of Month" + upDownVoteBean.findBestVoteOfMonth().get(0).toString());
+            
             logger.debug("TEST");
         } catch (Exception e) {
             throw new DemoException("DemoException", e);

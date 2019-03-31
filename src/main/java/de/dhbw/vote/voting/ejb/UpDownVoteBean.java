@@ -6,9 +6,7 @@ import de.dhbw.vote.common.ejb.VoterBean;
 import de.dhbw.vote.common.ejb.VoterNotFoundException;
 import de.dhbw.vote.common.jpa.Voter;
 import de.dhbw.vote.voting.jpa.UpDownVote;
-import de.dhbw.vote.voting.jpa.VoteDate;
 import java.sql.Date;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -61,80 +59,92 @@ public class UpDownVoteBean extends EntityBean<UpDownVote, Long>{
     }
     public List<UpDownVote> findBestVoteOfMonth(){
         List<UpDownVote> votes = new ArrayList();
-        VoteDate now = VoteDate.now();
-        VoteDate lastMonth = now.getLastMonth();
+        Date now = DateExtensions.now();
+        Date lastMonth = DateExtensions.getLastMonth(now);
         
-        votes = (List<UpDownVote>) em.createQuery(""
-                + " SELECT v FROM UpDownVote v "
-                + " WHERE v.upSize = "
-                + "(SELECT Max(x.upSize) FROM UpDownVote x) "
-                + "AND v.date BETWEEN :now AND :lastMonth")
+        votes = (List<UpDownVote>) em.createQuery(
+                "SELECT u FROM UpDownVote u "
+                        + "WHERE u.upSize = "
+                        + "(SELECT MAX(v.upSize) FROM UpDownVote v) "
+                        + "AND u.date BETWEEN :lastMonth AND :now") 
+                .setParameter("now", now)
+                .setParameter("lastMonth", lastMonth)
                 .getResultList();
         return votes;
     }
     public List<UpDownVote> findWorstVoteOfMonth(){
         List<UpDownVote> votes = new ArrayList();
-        VoteDate now = VoteDate.now();
-        VoteDate lastMonth = now.getLastMonth();  
-        
-        votes = (List<UpDownVote>) em.createQuery(""
-                + " SELECT v FROM UpDownVote v "
-                + " WHERE v.downSize = "
-                + " (SELECT Max(x.downSize) FROM UpDownVote x) ")
+        Date now = DateExtensions.now();
+        Date lastMonth = DateExtensions.getLastMonth(now);
+ 
+        votes = (List<UpDownVote>) em.createQuery(
+                "SELECT u FROM UpDownVote u "
+                        + "WHERE u.upSize = "
+                        + "(SELECT MIN(v.upSize) FROM UpDownVote v) "
+                        + "AND u.date BETWEEN :lastMonth AND :now") 
+                .setParameter("now", now)
+                .setParameter("lastMonth", lastMonth)
                 .getResultList();
-        
         return votes;
     }    
     public List<UpDownVote> findBestVoteOfWeek(){     
         List<UpDownVote> votes = new ArrayList();
-        VoteDate now = VoteDate.now();
-        VoteDate lastMonth = now.getLastWeek();
-        
-        votes = (List<UpDownVote>) em.createQuery(""
-                + " SELECT v FROM UpDownVote v "
-                + " WHERE v.upSize = "
-                + " (SELECT Max(x.upSize) FROM UpDownVote x) ")
+        Date now = DateExtensions.now();
+        Date lastWeek = DateExtensions.getLastWeek(now);        
+
+        votes = (List<UpDownVote>) em.createQuery(
+                "SELECT u FROM UpDownVote u "
+                        + "WHERE u.upSize = "
+                        + "(SELECT MAX(v.upSize) FROM UpDownVote v) "
+                        + "AND u.date BETWEEN :lastMonth AND :now") 
+                .setParameter("now", now)
+                .setParameter("lastMonth", lastWeek)
                 .getResultList();
-        
         return votes;
     }
     public List<UpDownVote> findWorstVoteOfWeek(){
         List<UpDownVote> votes = new ArrayList();
-        VoteDate now = VoteDate.now();
-        VoteDate lastMonth = now.getLastWeek();
+        Date now = DateExtensions.now();
+        Date lastWeek = DateExtensions.getLastWeek(now);        
         
-        votes = (List<UpDownVote>) em.createQuery(""
-                + " SELECT v FROM UpDownVote v "
-                + " WHERE v.downSize = "
-                + " (SELECT Max(x.downSize) FROM UpDownVote x) ")
+        votes = (List<UpDownVote>) em.createQuery(
+                "SELECT u FROM UpDownVote u "
+                        + "WHERE u.upSize = "
+                        + "(SELECT MIN(v.upSize) FROM UpDownVote v) "
+                        + "AND u.date BETWEEN :lastMonth AND :now") 
+                .setParameter("now", now)
+                .setParameter("lastMonth", lastWeek)
                 .getResultList();
-        
         return votes;
     } 
     public List<UpDownVote> findBestVoteOfDay(){
         List<UpDownVote> votes = new ArrayList();
-        VoteDate now = VoteDate.now();
-        VoteDate lastMonth = now.getLastDay();
+        Date now = DateExtensions.now();
+        Date lastDay = DateExtensions.getLastDay(now);
         
-        votes = (List<UpDownVote>) em.createQuery(""
-                + " SELECT v FROM UpDownVote v "
-                + " WHERE v.upSize = "
-                + " (SELECT Max(x.upSize) FROM UpDownVote x) ")
+        votes = (List<UpDownVote>) em.createQuery(
+                "SELECT u FROM UpDownVote u "
+                        + "WHERE u.upSize = "
+                        + "(SELECT MAX(v.upSize) FROM UpDownVote v) "
+                        + "AND u.date BETWEEN :lastMonth AND :now") 
+                .setParameter("now", now)
+                .setParameter("lastMonth", lastDay)
                 .getResultList();
-        
         return votes;
     }
     public List<UpDownVote> findWorstVoteOfDay(){
         List<UpDownVote> votes = new ArrayList();
-        VoteDate now = VoteDate.now();
-        VoteDate lastMonth = now.getLastDay();
+        Date now = DateExtensions.now();
+        Date lastDay = DateExtensions.getLastDay(now);
         
-        votes = (List<UpDownVote>) em.createQuery(""
-                + " SELECT v FROM UpDownVote v "
-                + " WHERE v.downSize = "
-                + " (SELECT Max(x.downSize) FROM UpDownVote x) ")
+        votes = (List<UpDownVote>) em.createQuery(
+                "SELECT u FROM UpDownVote u "
+                        + "WHERE u.upSize = "
+                        + "(SELECT MIN(v.upSize) FROM UpDownVote v) "
+                        + "AND u.date BETWEEN :lastMonth AND :now") 
+                .setParameter("now", now)
+                .setParameter("lastMonth", lastDay)
                 .getResultList();
-        
         return votes;
-    }     
+    }
 }
