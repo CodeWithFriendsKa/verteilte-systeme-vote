@@ -16,6 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /***
  * Trippleprogramming
@@ -32,8 +34,10 @@ public class UpDownVote implements Serializable {
     private Long id;
     @Column(name = "DESCRIPTION")
     private String description;
-    @Column(name = "CREATOR")
+    @Column(name = "USERNAME", length = 64)
     @ManyToOne
+    //@Size(min = 3, max = 64, message = "Der Benutzername muss zwischen fünf und 64 Zeichen lang sein.")
+    @NotNull(message = "Der Benutzername darf nicht leer sein.")
     private Voter creator;
     @OneToMany
     private List<Voter> upVotes;

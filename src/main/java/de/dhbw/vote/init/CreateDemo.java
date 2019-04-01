@@ -62,22 +62,24 @@ public class CreateDemo {
             String username = "MaMu";
                     
             for (int i = 0; i < 10; i++) {
-                voterBean.saveNew(new Voter(
+                voterBean.signup(
                 username + i,
-                username + i + "@dhbw.de",
                 "123",
-                prename + i,
-                name + i,
+                username + i + "@dhbw.de",
+                (prename + Integer.toString(i)),
+                (name + Integer.toString(i)),
                 10 + i,
                 Sex.MÄNNLICH
-                ));
+                );
             }
+            logger.debug("save1 end");
         } catch (Exception e){
             throw new DemoException("DemoExeption",e);
         }
     }
     private void saveDemoUpDownVote() throws DemoException {
         try {
+            logger.debug("save2 begin");
             List<Voter> voters = voterBean.findAll();
             String description = "Voting Nummer: ";
             int random = 0 + (int)(Math.random() * ((9 - 0) + 1));
