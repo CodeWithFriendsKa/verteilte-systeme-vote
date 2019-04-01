@@ -8,3 +8,9 @@ and open the template in the editor.
     Author     : chp
 */
 
+.dashBereich{
+    min-height: 20em;
+    max-height: 40%;
+    height: 40%;
+    background-color: white;
+}

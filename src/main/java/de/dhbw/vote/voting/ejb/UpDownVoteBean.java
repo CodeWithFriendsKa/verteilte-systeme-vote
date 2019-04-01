@@ -25,7 +25,7 @@ public class UpDownVoteBean extends EntityBean<UpDownVote, Long>{
     public UpDownVoteBean(){
         super(UpDownVote.class);
     }    
-    public List<UpDownVote> findVotesByUsername(String username) throws VoterNotFoundException {
+    public List<UpDownVote> findVotesByUsername(String username) throws VoterNotFoundException, UpDownVoteNotFoundException {
         List<UpDownVote> votes = new ArrayList();
         Voter voter = voterBean.findByUserName(username);
         
@@ -35,7 +35,7 @@ public class UpDownVoteBean extends EntityBean<UpDownVote, Long>{
                 .getResultList();
         return votes;
     }
-    public List<UpDownVote> findBestVoteAllTime(){
+    public List<UpDownVote> findBestVoteAllTime() throws UpDownVoteNotFoundException{
         List<UpDownVote> votes = new ArrayList();
         
         votes = (List<UpDownVote>) em.createQuery(""
@@ -46,7 +46,7 @@ public class UpDownVoteBean extends EntityBean<UpDownVote, Long>{
         
         return votes;
     }
-    public List<UpDownVote> findWorstVoteAllTime(){
+    public List<UpDownVote> findWorstVoteAllTime() throws UpDownVoteNotFoundException{
         List<UpDownVote> votes = new ArrayList();
         
         votes = (List<UpDownVote>) em.createQuery(""
@@ -57,7 +57,7 @@ public class UpDownVoteBean extends EntityBean<UpDownVote, Long>{
         
         return votes;
     }
-    public List<UpDownVote> findBestVoteOfMonth(){
+    public List<UpDownVote> findBestVoteOfMonth() throws UpDownVoteNotFoundException{
         List<UpDownVote> votes = new ArrayList();
         Date now = DateExtensions.now();
         Date lastMonth = DateExtensions.getLastMonth(now);
@@ -72,7 +72,7 @@ public class UpDownVoteBean extends EntityBean<UpDownVote, Long>{
                 .getResultList();
         return votes;
     }
-    public List<UpDownVote> findWorstVoteOfMonth(){
+    public List<UpDownVote> findWorstVoteOfMonth() throws UpDownVoteNotFoundException{
         List<UpDownVote> votes = new ArrayList();
         Date now = DateExtensions.now();
         Date lastMonth = DateExtensions.getLastMonth(now);
@@ -87,7 +87,7 @@ public class UpDownVoteBean extends EntityBean<UpDownVote, Long>{
                 .getResultList();
         return votes;
     }    
-    public List<UpDownVote> findBestVoteOfWeek(){     
+    public List<UpDownVote> findBestVoteOfWeek() throws UpDownVoteNotFoundException{     
         List<UpDownVote> votes = new ArrayList();
         Date now = DateExtensions.now();
         Date lastWeek = DateExtensions.getLastWeek(now);        
@@ -102,7 +102,7 @@ public class UpDownVoteBean extends EntityBean<UpDownVote, Long>{
                 .getResultList();
         return votes;
     }
-    public List<UpDownVote> findWorstVoteOfWeek(){
+    public List<UpDownVote> findWorstVoteOfWeek() throws UpDownVoteNotFoundException{
         List<UpDownVote> votes = new ArrayList();
         Date now = DateExtensions.now();
         Date lastWeek = DateExtensions.getLastWeek(now);        
@@ -117,7 +117,7 @@ public class UpDownVoteBean extends EntityBean<UpDownVote, Long>{
                 .getResultList();
         return votes;
     } 
-    public List<UpDownVote> findBestVoteOfDay(){
+    public List<UpDownVote> findBestVoteOfDay() throws UpDownVoteNotFoundException{
         List<UpDownVote> votes = new ArrayList();
         Date now = DateExtensions.now();
         Date lastDay = DateExtensions.getLastDay(now);
@@ -132,7 +132,7 @@ public class UpDownVoteBean extends EntityBean<UpDownVote, Long>{
                 .getResultList();
         return votes;
     }
-    public List<UpDownVote> findWorstVoteOfDay(){
+    public List<UpDownVote> findWorstVoteOfDay() throws UpDownVoteNotFoundException{
         List<UpDownVote> votes = new ArrayList();
         Date now = DateExtensions.now();
         Date lastDay = DateExtensions.getLastDay(now);
