@@ -1,0 +1,32 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+ * Created on : 01.04.2019, 10:04:34
+ * Trippleprogramming
+ * @author Rouven Brost
+ * @author Christopher Pschibila
+ * @author codekeks (Tamino Fischer)
+*/
+
+html, body, main {
+    height: 100%;
+}
+
+.hintergrund {
+    background-image: url("../img/Hintergrund.png");
+    background-color: #cccccc;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+
+.login {
+    background-color: white;
+    
+}
+
+
+

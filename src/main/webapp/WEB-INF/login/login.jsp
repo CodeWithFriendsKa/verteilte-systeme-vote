@@ -18,9 +18,6 @@
         Login
     </jsp:attribute>
 
-    <jsp:attribute name="head">
-        <link rel="stylesheet" href="<c:url value="/css/login.css"/>" />
-    </jsp:attribute>
 
     <jsp:attribute name="menu">
         <div class="menuitem">
@@ -29,28 +26,37 @@
     </jsp:attribute>
 
     <jsp:attribute name="content">
-        <div class="container">
-            <form action="j_security_check" method="post" class="stacked">
-                <div class="column">
-                    <%-- Eingabefelder --%>
-                    <label for="j_username">
-                        Benutzername:
-                        <span class="required">*</span>
-                    </label>
-                    <input type="text" name="j_username">
+        <div class="row">
+            <div class="col-md-6 login rounded mt-5 p-3">
+                <div clas="continer">
+                    <form action="j_security_check" method="post" class="stacked">
+                        <div class="column">
+                            <%-- Eingabefelder --%>
+                            <label for="j_username">
+                                Benutzername:
+                                <span class="required">*</span>
+                            </label>
+                            <input type="text" name="j_username">
+                    
+                            <br>
+                            
+                            <label for="j_password">
+                                Passwort:
+                                <span class="required">*</span>
+                            </label>
+                            <input type="password" name="j_password">
 
-                    <label for="j_password">
-                        Passwort:
-                        <span class="required">*</span>
-                    </label>
-                    <input type="password" name="j_password">
-
-                    <%-- Button zum Abschicken --%>
-                    <button class="icon-login" type="submit">
-                        Einloggen
-                    </button>
+                            <br>
+                            
+                            <%-- Button zum Abschicken --%>
+                            <button type="button" class="btn btn-primary btn-sm" type="submit">
+                                Einloggen
+                            </button>
+                        </div>    
+                    </form>
                 </div>
-            </form>
+                
+            </div>
         </div>
     </jsp:attribute>
 </template:base>
