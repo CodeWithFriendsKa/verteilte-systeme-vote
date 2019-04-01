@@ -46,6 +46,16 @@
                         <a href="<c:url value="/logout/"/>" class="icon-logout">Logout ${pageContext.request.userPrincipal.name}</a>
                     </div>
                 </c:if>
+                
+                <div class="menuitem">
+                    <a href="<c:url value="/dashboard/"/>" class="icon-logout">Dashboard</a>
+                </div>
+                <div class="menuitem">
+                    <a href="<c:url value="/createvote/"/>" class="icon-logout">Create Vote</a>
+                </div>
+                <div class="menuitem">
+                    <a href="<c:url value="/voteit/"/>" class="icon-logout">Vote It</a>
+                </div>
             </nav>
         </header>
 

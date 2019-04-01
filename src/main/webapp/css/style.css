@@ -24,8 +24,12 @@ html, body {
 }
 
 .login {
+    background-color: white;  
+}
+
+.dashBereich{
+    height: 40%;
     background-color: white;
-    
 }
 
 
