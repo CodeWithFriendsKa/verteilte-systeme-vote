@@ -56,7 +56,7 @@
                     </form>
                 </div>
                 
-            </div>
+            </div>        
         </div>
     </jsp:attribute>
 </template:base>

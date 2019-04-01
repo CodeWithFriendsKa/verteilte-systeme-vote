@@ -12,7 +12,7 @@ and open the template in the editor.
 */
 
 html, body, main {
-    height: 100%;
+    min-height: 100%;
 }
 
 .hintergrund {
@@ -20,7 +20,7 @@ html, body, main {
     background-color: #cccccc;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100%;
+    -min-height: 100%;
 }
 
 .login {
