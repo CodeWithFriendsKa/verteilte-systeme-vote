@@ -40,24 +40,12 @@
         
             function buttonChanger(id){
                 for(int i = 0; i < 4; i++){
-                    var text = 'button' + i
+                    var text = 'button' + i;
                     var e = document.getElementById(text);
                     e.disabled = false;
                 }
             }
-            
-        var sel = document.getElementById("select");
-        sel.addEventListener("change", function(){
-            function changer() {
-                var x = document.getElementById('select').value;
-                var result = 'result' + x;
-                document.getElementById('result0').stlye.display = "none";
-                document.getElementById('result1').stlye.display = "none";
-                document.getElementById('result2').stlye.display = "none";
-                document.getElementById('result3').stlye.display = "none";
-                document.getElementById(result).stlye.display = "inline";
-            }
-        });
+
     </script>
 
 
@@ -86,12 +74,6 @@
             <div class="col-md-6 mt-5 p-2">
                 <div class="dashBereich rounded p-2">
                      <h4>Bestes / Schlechtestes Voting</h4>
-                     <select id="select" name="sel" class="custom-select" onchange='changer()'>
-                         <option id='0' value='0'>insgesamt</option>
-                         <option id='1' value='1'>diesen Monat</option>
-                         <option id='2' value='2'>diese Woche</option>
-                         <option id='3' value='3'>heute</option>
-                     </select>
                      <span>
                          <button id="button0" type="button" class="btn btn-primary btn-sm" style="width:8em;" disabled onclick="buttonChanger('bestWorstVotings0')">insgesamt</button>
                          <button id="button1" type="button" class="btn btn-primary btn-sm" style="width:8em;" onclick="buttonChanger('bestWorstVotings1')">diesen Monat</button>
@@ -101,10 +83,36 @@
                      <div id="result0" >
                          <div class="row">
                              <div class="col-md-5 m-2">
-                                 
+                                 <p class="text-danger">Bestes Vote:</p>
+                                 <div class="rounded p-3" style="border: 1px solid grey;">
+                                    <p>${BestAllTimes.getDescription()}</p>
+                                    <p>von: ${BestAllTimes.getCreator().getUsername()}</p>
+                                    <div class="row">
+                                        <div class="md-6 ml-1" style="color:red;">
+                                            Up Votes
+                                            <i class="fab fa-hotjar ml-1"></i>
+                                        </div>
+                                        <div class="md-6 ml-1" style="color:red;">
+                                            ${BestAllTimes.getUpSize()}
+                                        </div>
+                                    </div>
+                                </div>
                              </div>
                              <div class="col-md-5 m-2">
-                                 
+                                 <p class="text-primary">Schlechtestes Vote:</p>
+                                 <div class="rounded p-3" style="border: 1px solid grey;">
+                                    <p>${WorstAllTimes.getDescription()}</p>
+                                    <p>von: ${WorstAllTimes.getCreator().getUsername()}</p>
+                                    <div class="row">
+                                        <div class="md-6 ml-1" style="color:blue;">
+                                            Down Votes
+                                            <i class="fas fa-snowflake ml-1"></i>
+                                        </div>
+                                        <div class="md-6 ml-1" style="color:blue;">
+                                            ${WorstAllTimes.getDownSize()}
+                                        </div>
+                                    </div>
+                                </div>
                              </div>
                          </div>
                      </div>
@@ -116,10 +124,10 @@
         </div>
         <div class="row">
             <div class="col-md-12 mt-2 p-2">
-                <div class="dashBereich rounded p-2">
+                <div class="dashBereich rounded p-2" >
                     <h4>Neue Votings</h4>
                     
-                    <div class="row">
+                    <div class="row" style="overflow-y: scroll; max-height: 16em; max-width: 100%;">
                         <c:forEach items="${myVotes}" var="vote">
                             <div class="col-md-4 p-3">
                                 <div class="rounded p-3" style="border: 1px solid grey;">
