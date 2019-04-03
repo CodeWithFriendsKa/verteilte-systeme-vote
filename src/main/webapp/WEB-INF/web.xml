@@ -32,7 +32,7 @@
             Alle URLs beginnend mit /app/ schützen
         -->
         <web-resource-collection>
-            <web-resource-name>vote-app</web-resource-name>
+            <web-resource-name>vote</web-resource-name>
             <url-pattern>/app/*</url-pattern>
         </web-resource-collection>
         
@@ -73,13 +73,4 @@
         Definition der JSP-Dateien mit dem Loginformular und einer Fehlerseite,
         falls der Anwender sich vertippt.
     -->
-    <login-config>
-        <auth-method>FORM</auth-method>
-        <realm-name>vote-app</realm-name>
-        
-        <form-login-config>
-            <form-login-page>/WEB-INF/login/login.jsp</form-login-page>
-            <form-error-page>/WEB-INF/login/error.jsp</form-error-page>
-        </form-login-config>
-    </login-config>
 </web-app>

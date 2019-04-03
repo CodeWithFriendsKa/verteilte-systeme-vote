@@ -18,11 +18,11 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class VoterBean{
-    private static final CustomLogger logger = new CustomLogger(VoterBean.class);
+    private final CustomLogger logger = new CustomLogger(VoterBean.class);
     @PersistenceContext
     EntityManager em;
     @Resource
-    EJBContext ctx;
+    public EJBContext ctx;
     
     public Voter findByUserName(String username) throws VoterNotFoundException {
         Voter voter = (Voter) em.createQuery("SELECT v FROM Voter v WHERE v.username = :userName")
@@ -33,44 +33,68 @@ public class VoterBean{
             throw new VoterNotFoundException("There is no user with the username: " + username);
         }
         
+        logger.debug("findByUserName: " + voter.toString());
         return voter;
     }   
+    
     public Voter getCurrentUser() {
-        return this.em.find(Voter.class, this.ctx.getCallerPrincipal().getName());
+        Voter voter = this.em.find(Voter.class, this.ctx.getCallerPrincipal().getName()); 
+        
+        logger.debug("getCurrentUser: " + voter.toString());
+        return voter;
     }
+    
     public void signup(String username, String password, String mail, String prename, String name, int age, Sex sex) throws UserAlreadyExistsException {
         if (em.find(Voter.class, username) != null) {
             throw new UserAlreadyExistsException("Der Benutzername $B ist bereits vergeben.".replace("$B", username));
         }
 
-        Voter user = new Voter(username, mail, password, prename, name, age, sex);
-        user.addToGroup("app-user");
-        em.persist(user);
+        Voter voter = new Voter(username, mail, password, prename, name, age, sex);
+        voter.addToGroup("app-user");
+        
+        logger.debug("signup:" + voter);
+        em.persist(voter);
     }
+    
     @RolesAllowed("app-user")
-    public void changePassword(Voter user, String oldPassword, String newPassword) throws InvalidCredentialsException {
-        if (user == null || !user.checkPassword(oldPassword)) {
+    public void changePassword(Voter voter, String oldPassword, String newPassword) throws InvalidCredentialsException {
+        if (voter == null || !voter.checkPassword(oldPassword)) {
             throw new InvalidCredentialsException("Benutzername oder Passwort sind falsch.");
         }
 
-        user.setPassword(newPassword);
+        logger.debug(
+                "changePassword:" + " " +
+                voter.toString() + " " +
+                oldPassword + " " +
+                newPassword
+        );
+        voter.setPassword(newPassword);
     }
+    
     @RolesAllowed("app-user")
-    public void delete(Voter user) {
-        this.em.remove(user);
+    public void delete(Voter voter) {
+        logger.debug("delete: "+ voter);
+        this.em.remove(voter);
     }
+    
     @RolesAllowed("app-user")
-    public Voter update(Voter user) {
-        return em.merge(user);
+    public Voter update(Voter voter) {
+        logger.debug("update: "+ voter);
+        return em.merge(voter);
     }
+    
     public void deleteAll(){
         this.findAll().forEach(v -> {
             logger.debug("delete: " + v.toString());
             this.delete((Voter) v);
         });
     }
+    
     public List<Voter> findAll() {
         String select = "SELECT v FROM Voter v";
-        return em.createQuery(select).getResultList();
+        List<Voter> voters =  em.createQuery(select).getResultList();
+        
+        voters.forEach(v -> logger.debug("findAll: " + v.toString()));
+        return voters;
     }
 }

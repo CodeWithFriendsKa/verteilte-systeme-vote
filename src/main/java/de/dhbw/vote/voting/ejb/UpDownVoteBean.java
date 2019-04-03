@@ -9,6 +9,7 @@ import de.dhbw.vote.voting.jpa.UpDownVote;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 /***
@@ -18,6 +19,7 @@ import javax.ejb.Stateless;
  * @author codekeks (Tamino Fischer)
  */
 @Stateless
+@RolesAllowed("app-user")
 public class UpDownVoteBean extends EntityBean<UpDownVote, Long>{
     private static final CustomLogger logger = new CustomLogger(UpDownVoteBean.class);
     @EJB

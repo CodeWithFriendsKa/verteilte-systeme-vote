@@ -23,4 +23,16 @@ public enum Sex {
                 return this.toString();
         }
     }
+    public static Sex getSex(String sex){
+        switch (sex) {
+            case "männlich":
+                return MÄNNLICH;
+            case "weiblich":
+                return WEIBLICH;
+            case "divers":
+                return DIVERS;
+            default:
+                return UNBEKANNT;
+        }
+    }
 }

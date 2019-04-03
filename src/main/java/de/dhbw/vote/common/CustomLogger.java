@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package de.dhbw.vote.common;
 
 import java.time.LocalDateTime;
@@ -12,6 +7,9 @@ import java.time.LocalDateTime;
  * @author Rouven Brost
  * @author Christopher Pschibila
  * @author codekeks (Tamino Fischer)
+ * 
+ * Prämisse -> keine Änderungen in der tomee config wg. Einheitlichkeit
+ * Konklusion -> eigener kleiner Logger, der mehr Infos enthält als System.out
  */
 public class CustomLogger {
     private final Class<?> genericClass;
@@ -34,15 +32,17 @@ public class CustomLogger {
                 ANSI_CYAN +
                 LocalDateTime.now() + " " +
                 "DEBUG:" + " " +
+                this.genericClass.toString() + " " +
                 message +
                 ANSI_RESET
         );
     }
     public void error(String message, Exception e){
         System.out.println(
-                ANSI_CYAN +
+                ANSI_RED +
                 LocalDateTime.now() + " " +
                 "ERROR:" + " " +
+                this.genericClass.toString() + " " +   
                 message + " " +
                 e.getMessage() + " " +
                 e.toString() +

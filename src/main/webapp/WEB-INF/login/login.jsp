@@ -28,34 +28,48 @@
     <jsp:attribute name="content">
         <div class="row">
             <div class="col-md-6 login rounded mt-5 p-3">
-                <div clas="continer">
-                    <form action="j_security_check" method="post" class="stacked">
+                <div class="continer">
+                    
+                    <form method="post" class="stacked">
                         <div class="column">
+                            <%-- CSRF-Token --%>
+                            <input type="hidden" name="csrf_token" value="${csrf_token}">
+
                             <%-- Eingabefelder --%>
-                            <label for="j_username">
+                            <label for="login_username">
                                 Benutzername:
                                 <span class="required">*</span>
                             </label>
-                            <input type="text" name="j_username">
-                    
-                            <br>
-                            
-                            <label for="j_password">
+                            <div class="side-by-side">
+                                <input type="text" name="login_username">
+                            </div>
+
+                            <label for="login_password1">
                                 Passwort:
                                 <span class="required">*</span>
                             </label>
-                            <input type="password" name="j_password">
+                            <div class="side-by-side">
+                                <input type="password" name="login_password">
+                            </div>
 
-                            <br>
-                            
                             <%-- Button zum Abschicken --%>
-                            <button type="button" class="btn btn-primary btn-sm" type="submit">
-                                Einloggen
-                            </button>
-                        </div>    
+                            <div class="side-by-side">
+                                <button class="icon-pencil" type="submit">
+                                    Einloggen
+                                </button>
+                            </div>
+                        </div>
+
+                        <%-- Fehlermeldungen --%>
+                        <c:if test="${!empty signup_form.errors}">
+                            <ul class="errors">
+                                <c:forEach items="${signup_form.errors}" var="error">
+                                    <li>${error}</li>
+                                    </c:forEach>
+                            </ul>
+                        </c:if>
                     </form>
                 </div>
-                
             </div>        
         </div>
     </jsp:attribute>

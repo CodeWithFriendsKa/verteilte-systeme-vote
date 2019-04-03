@@ -10,6 +10,7 @@ import de.dhbw.vote.voting.ejb.DateExtensions;
 import java.sql.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.annotation.security.RunAs;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
@@ -21,6 +22,7 @@ import javax.ejb.Startup;
  */
 @Startup
 @Singleton
+@RunAs("app-user")
 public class CreateDemo {
     
     private final CustomLogger logger = new CustomLogger(CreateDemo.class);
@@ -28,15 +30,17 @@ public class CreateDemo {
     private VoterBean voterBean;
     @EJB
     private UpDownVoteBean upDownVoteBean;  
+    
     /**
-     * This method makes the following steps:
-     * 1) delete all demo data
-     * 2) save new demo data in the database
-     * 3) sow all demodata from database
+     * Diese Methode führt folgende Schritte aus:
+     * 1) lösche alle "alten" Daten aus der Datenbank
+     * 2) speichere neue "frische" Daten in die Datenbank
+     * 3) zeige die gespeicherten Daten an
      */
     @PostConstruct
     private void saveDemoData() {
         try {           
+                    
             logger.debug("DELETE OLD DEMODATA BEGIN");
             voterBean.deleteAll();
             upDownVoteBean.deleteAll();
@@ -72,14 +76,12 @@ public class CreateDemo {
                 Sex.MÄNNLICH
                 );
             }
-            logger.debug("save1 end");
         } catch (Exception e){
             throw new DemoException("DemoExeption",e);
         }
     }
     private void saveDemoUpDownVote() throws DemoException {
         try {
-            logger.debug("save2 begin");
             List<Voter> voters = voterBean.findAll();
             String description = "Voting Nummer: ";
             int random = 0 + (int)(Math.random() * ((9 - 0) + 1));
@@ -101,7 +103,7 @@ public class CreateDemo {
     private void showDemoVoter() throws DemoException{
         try {
             List<Voter> voters = voterBean.findAll();
-            voters.forEach(voter -> logger.debug(voter.toString()));
+            voters.forEach(voter -> logger.debug("DEMO: " + voter.toString()));
         } catch (Exception e) {
             throw new DemoException("DemoExeption", e);
         }
@@ -109,23 +111,23 @@ public class CreateDemo {
     private void showDemoUpDownVote() throws DemoException{
         try {
             List<UpDownVote> upDowns = upDownVoteBean.findAll();
-            upDowns.forEach(upDown -> logger.debug(upDown.toString()));
+            upDowns.forEach(upDown -> logger.debug("DEMO: " + upDown.toString()));
         } catch (Exception e) {
             throw new DemoException("DemoException", e);
         }
     }
     private void testUpDownVoteEjb() throws DemoException{
         try {
-            logger.debug("TEST");
+            logger.debug("DEMO TEST");
             Date voteDate = DateExtensions.now();
             logger.debug(voteDate.toString());
-            logger.debug(DateExtensions.getLastDay(voteDate).toString());
-            logger.debug(DateExtensions.getLastWeek(voteDate).toString());
-            logger.debug(DateExtensions.getLastMonth(voteDate).toString());
+            logger.debug("DEMO: " +DateExtensions.getLastDay(voteDate).toString());
+            logger.debug("DEMO: " +DateExtensions.getLastWeek(voteDate).toString());
+            logger.debug("DEMO: " +DateExtensions.getLastMonth(voteDate).toString());
             
-            logger.debug("Best of Month" + upDownVoteBean.findBestVoteOfMonth().get(0).toString());
+            logger.debug("DEMO: Best of Month" + upDownVoteBean.findBestVoteOfMonth().get(0).toString());
             
-            logger.debug("TEST");
+            logger.debug("DEMO TEST");
         } catch (Exception e) {
             throw new DemoException("DemoException", e);
         }

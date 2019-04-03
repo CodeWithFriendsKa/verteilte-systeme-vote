@@ -48,13 +48,13 @@
                 </c:if>
                 
                 <div class="menuitem">
-                    <a href="<c:url value="/dashboard/"/>" class="icon-logout">Dashboard</a>
+                    <a href="<c:url value="/app/dashboard/"/>" class="icon-logout">Dashboard</a>
                 </div>
                 <div class="menuitem">
-                    <a href="<c:url value="/createvote/"/>" class="icon-logout">Create Vote</a>
+                    <a href="<c:url value="/app/createvote/"/>" class="icon-logout">Create Vote</a>
                 </div>
                 <div class="menuitem">
-                    <a href="<c:url value="/voteit/"/>" class="icon-logout">Vote It</a>
+                    <a href="<c:url value="/app/voteit/"/>" class="icon-logout">Vote It</a>
                 </div>
             </nav>
         </header>

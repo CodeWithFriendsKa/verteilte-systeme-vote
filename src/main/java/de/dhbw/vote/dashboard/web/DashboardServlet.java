@@ -1,5 +1,6 @@
 package de.dhbw.vote.dashboard.web;
 
+import de.dhbw.vote.common.CustomLogger;
 import de.dhbw.vote.common.ejb.VoterBean;
 import de.dhbw.vote.voting.ejb.UpDownVoteBean;
 import de.dhbw.vote.voting.ejb.UpDownVoteNotFoundException;
@@ -26,21 +27,21 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author chp
  */
-@WebServlet(urlPatterns = {"/dashboard/"})
+@WebServlet(urlPatterns = {"/app/dashboard/"})
 public class DashboardServlet extends HttpServlet {
-
-    public static final String URL = "/dashboard/";
-
+    //public static final String URL = "/dashboard/";
+    private static final CustomLogger logger = new CustomLogger(DashboardServlet.class);
     @EJB
     UpDownVoteBean upDownVoteBean;
-
     @EJB
     VoterBean voterBean;
-
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
+   
+        logger.debug("dashboad do get ");
+        
     //Find votes of voter 1
     List<UpDownVote> votes = new ArrayList();
     try {

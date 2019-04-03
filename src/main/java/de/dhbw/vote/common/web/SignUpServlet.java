@@ -9,10 +9,14 @@
  */
 package de.dhbw.vote.common.web;
 
+import de.dhbw.vote.common.CustomLogger;
+import de.dhbw.vote.common.ejb.UserAlreadyExistsException;
 import de.dhbw.vote.common.ejb.ValidationBean;
 import de.dhbw.vote.common.ejb.VoterBean;
+import de.dhbw.vote.common.jpa.Sex;
 import de.dhbw.vote.common.jpa.Voter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -30,15 +34,14 @@ import javax.servlet.http.HttpSession;
 @WebServlet(urlPatterns = {"/signup/"})
 public class SignUpServlet extends HttpServlet {
     
+    private static final CustomLogger logger = new CustomLogger(SignUpServlet.class);
     @EJB
-    ValidationBean validationBean;
-            
+    private ValidationBean validationBean;
     @EJB
-    VoterBean userBean;
+    private VoterBean voterBean;
     
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         // Anfrage an dazugerhörige JSP weiterleiten
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login/signup.jsp");
@@ -48,50 +51,58 @@ public class SignUpServlet extends HttpServlet {
         HttpSession session = request.getSession();
         session.removeAttribute("signup_form");
     }
-    /*
+    
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-        // Formulareingaben auslesen        
-        String username = request.getParameter("signup_username");
-        String password1 = request.getParameter("signup_password1");
-        String password2 = request.getParameter("signup_password2");
-        
-        // Eingaben prüfen
-        Voter user = new User(username, password1);
-        List<String> errors = this.validationBean.validate(user);
-        this.validationBean.validate(user.getPassword(), errors);
-        
-        if (password1 != null && password2 != null && !password1.equals(password2)) {
-            errors.add("Die beiden Passwörter stimmen nicht überein.");
-        }
-        
-        // Neuen Benutzer anlegen
-        if (errors.isEmpty()) {
-            try {
-                this.userBean.signup(username, password1);
-            } catch (UserBean.UserAlreadyExistsException ex) {
-                errors.add(ex.getMessage());
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            //Error liste für die Fehlermeldungen anlegen
+            List<String> errors = new ArrayList<>();
+            
+            // Formulareingaben auslesen        
+            String username = request.getParameter("signup_username");
+            String password1 = request.getParameter("signup_password1");
+            String password2 = request.getParameter("signup_password2");
+            String mail = request.getParameter("signup_mail");
+            String prename = request.getParameter("signup_prename");
+            String name = request.getParameter("signup_name");
+            int age =  Integer.parseInt(request.getParameter("signup_age"));
+            Sex sex = Sex.getSex(request.getParameter("signup_sex"));
+            logger.debug(
+                    "do POST ausgelesene Formulardaten:" + " " + 
+                    username + " " + 
+                    password1 + " " + 
+                    password2 + " " + 
+                    mail + " " + 
+                    prename + " " + 
+                    name + " " + 
+                    age + " " + 
+                    sex
+            );
+            
+            //Voter validieren
+            if (!password1.equals(password2)){
+                errors.add("Die Passwörter stimmen nicht überein!");
             }
-        }
-        
-        // Weiter zur nächsten Seite
-        if (errors.isEmpty()) {
-            // Keine Fehler: Startseite aufrufen
+            errors = validationBean.validate(new Voter(), errors);
+            
+            //Wenn keine Exception geworfen wurde registroere den Voter und gehe auf die nächste Siete 
+            if (true) {
+                this.voterBean.signup(
+                    username,
+                    password1,
+                    mail,
+                    prename,
+                    name,
+                    age,
+                    sex
+            );
             request.login(username, password1);
-            response.sendRedirect("/app/dashboard/");
-        } else {
-            // Fehler: Formuler erneut anzeigen
-            FormValues formValues = new FormValues();
-            formValues.setValues(request.getParameterMap());
-            formValues.setErrors(errors);
-            
-            HttpSession session = request.getSession();
-            session.setAttribute("signup_form", formValues);
-            
-            response.sendRedirect(request.getRequestURI());
+            response.sendRedirect("/vote/app/dashboard/");
+            } 
+        } 
+        catch (UserAlreadyExistsException ex) {
+            logger.error("Der Voter existiert bereits", ex);
+            request.getRequestDispatcher("/WEB-INF/login/error.jsp").forward(request, response);
         }
     }
-    */
 }

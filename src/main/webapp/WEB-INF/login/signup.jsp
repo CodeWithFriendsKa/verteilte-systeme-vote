@@ -22,7 +22,7 @@
 
     <jsp:attribute name="menu">
         <div class="menuitem">
-            <a href="<c:url value="/logout/"/>">Einloggen</a>
+            <a href="<c:url value="/login/"/>">Einloggen</a>
         </div>
     </jsp:attribute>
 
@@ -57,6 +57,46 @@
                     <div class="side-by-side">
                         <input type="password" name="signup_password2" value="${signup_form.values["signup_password2"][0]}">
                     </div>
+                    
+                    <label for="signup_prename">
+                        Vorname:
+                        <span class="required">*</span>
+                    </label>
+                    <div class="side-by-side">
+                        <input type="text" name="signup_prename" value="${signup_form.values["signup_prename"][0]}">
+                    </div>   
+                    
+                    <label for="signup_name">
+                        Nachname:
+                        <span class="required">*</span>
+                    </label>
+                    <div class="side-by-side">
+                        <input type="text" name="signup_name" value="${signup_form.values["signup_name"][0]}">
+                    </div>            
+                    
+                    <label for="signup_age">
+                        Dein Alter:
+                        <span class="required">*</span>
+                    </label>
+                    <div class="side-by-side">
+                        <input type="text" name="signup_age" value="${signup_form.values["signup_age"][0]}">
+                    </div>                    
+                    
+                    <label for="signup_mail">
+                        Mail:
+                        <span class="required">*</span>
+                    </label>
+                    <div class="side-by-side">
+                        <input type="text" name="signup_mail" value="${signup_form.values["signup_mail"][0]}">
+                    </div>           
+                    
+                    <label for="signup_sex">
+                        Geschlecht:
+                        <span class="required">*</span>
+                    </label>
+                    <div class="side-by-side">
+                        <input type="text" name="signup_sex" value="${signup_form.values["signup_sex"][0]}">
+                    </div>                      
 
                     <%-- Button zum Abschicken --%>
                     <div class="side-by-side">
