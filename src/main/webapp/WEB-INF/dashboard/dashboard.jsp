@@ -20,15 +20,15 @@
     google.charts.setOnLoadCallback(drawChart);
     function drawChart() {
     var data = google.visualization.arrayToDataTable([
-        ['Typ', 'Votes'],
-        ['Up Votes',     ${myUpVotes}],
-        ['Down Votes', ${myDownVotes}]
+    ['Typ', 'Votes'],
+    ['Up Votes',     ${myUpVotes}],
+    ['Down Votes', ${myDownVotes}]
     ]);
 
     var options = {
-        colors: ['red', 'blue'],
-        pieHole: 0.4,
-        backgroundColor: { fill:'transparent' },
+    colors: ['red', 'blue'],
+    pieHole: 0.3,
+    backgroundColor: { fill:'transparent' },
     };
 
     var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
@@ -36,31 +36,31 @@
     }
 
     function buttonChanger(el) {
-        var i;
-        for(i = 0; i < 4; i++) {
-            document.getElementById('button' + i).disabled = false;
-        }
-        document.getElementById(el.id).disabled = true;
+    var i;
+    for(i = 0; i < 4; i++) {
+    document.getElementById('button' + i).disabled = false;
+    }
+    document.getElementById(el.id).disabled = true;
 
-        var j;
-        for(j=0; j < 4 ; j++) {
-            document.getElementById('result' + j).hidden = true;
-        }
-        var text = 'result' + el.id.charAt(el.id.length-1);
-            document.getElementById(text).hidden = false;
+    var j;
+    for(j=0; j < 4 ; j++) {
+    document.getElementById('result' + j).hidden = true;
+    }
+    var text = 'result' + el.id.charAt(el.id.length-1);
+    document.getElementById(text).hidden = false;
     }
 
     function bChanger(ele) {
-        document.getElementById('b0').disabled = false;
-        document.getElementById('b1').disabled = false;
-        document.getElementById('r0').hidden = true;
-        document.getElementById('r1').hidden = true;
-        if(ele.id.charAt(ele.id.length-1) < 2){
-            document.getElementById(ele.id).disabled = true;
-            document.getElementById('r' + ele.id.charAt(ele.id.length-1)).hidden = false;
-        }
-
+    document.getElementById('b0').disabled = false;
+    document.getElementById('b1').disabled = false;
+    document.getElementById('r0').hidden = true;
+    document.getElementById('r1').hidden = true;
+    if(ele.id.charAt(ele.id.length-1) < 2){
+    document.getElementById(ele.id).disabled = true;
+    document.getElementById('r' + ele.id.charAt(ele.id.length-1)).hidden = false;
     }
+    }
+
 </script>
 
 
@@ -71,7 +71,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="head">
-        <link rel="stylesheet" href="<c:url value="../css/dashboard.css"/>" />
+        <link rel="stylesheet" href="<c:url value="../../css/dashboard.css"/>" />
     </jsp:attribute>
 
     <jsp:attribute name="menu">
@@ -84,7 +84,15 @@
                 <div class="dashBereich rounded p-2">
                     <h4>Meine Votings</h4>
                     <p>Erstellte Fragen: ${myVotes.size()}</p>
-                    <div id="donutchart" style="width: 100%; height: 15em;"></div>
+                    <c:if test="${myUpVotes != 0 || myDownVotes != 0}">
+                        <div id="donutchart" style="width: 100%; height: 15em;"></div>
+                    </c:if>
+
+                    <c:if test="${myUpVotes == 0 && myDownVotes == 0}">
+                        <div class="alert-danger p-2">
+                            <p>Du hast bisher noch keine Votings.</p>
+                        </div>
+                    </c:if>
                 </div>
             </div>
             <div class="col-md-6 mt-5 p-2">
@@ -247,7 +255,7 @@
             <div class="col-md-12 mt-2 p-2">
                 <div class="dashBereich rounded p-2" >
 
-                    <h4 class='mr-2 d-inline'>Neue Votings von: </h4>
+                    <h4 class='mr-2 d-inline'>Votings von: </h4>
                     <button id="b0" type="button" class="btn btn-success btn-sm d-inline" style="width:8em;" disabled onclick="bChanger(this)">mir</button>
                     <button id="b1" type="button" class="btn btn-success btn-sm d-inline" style="width:8em;" onclick="bChanger(this)">allen</button>
 
@@ -255,26 +263,28 @@
                         <div class="row" style="overflow-y: scroll; max-height: 16em; max-width: 100%;">
                             <c:forEach items="${myVotes}" var="vote">
                                 <div class="col-md-4 p-3">
-                                    <div class="rounded p-3" style="border: 1px solid grey;">
-                                        <h4>${vote.getDescription()}</h4>
-                                        <p>von: ${vote.getCreator().getUsername()}</p>
-                                        <div class="row">
-                                            <div class="md-3 ml-1" style="color:red;">
-                                                Up Votes
-                                                <i class="fab fa-hotjar ml-1"></i>
-                                            </div>
-                                            <div class="md-3 ml-1" style="color:red;">
-                                                ${vote.getUpSize()}
-                                            </div>
-                                            <div class="md-3 ml-5" style="color:blue;">
-                                                Down Votes
-                                                <i class="fas fa-snowflake ml-1"></i>
-                                            </div>
-                                            <div class="md-3 ml-1" style="color:blue;">
-                                                ${vote.getDownSize()}
+                                    <a href="<c:url value="/app/voteit/${vote.getId()}"/>">
+                                        <div class="rounded p-3" style="border: 1px solid grey;">
+                                            <h4>${vote.getDescription()}</h4>
+                                            <p>von: ${vote.getCreator().getUsername()}</p>
+                                            <div class="row">
+                                                <div class="md-3 ml-1" style="color:red;">
+                                                    Up Votes
+                                                    <i class="fab fa-hotjar ml-1"></i>
+                                                </div>
+                                                <div class="md-3 ml-1" style="color:red;">
+                                                    ${vote.getUpSize()}
+                                                </div>
+                                                <div class="md-3 ml-5" style="color:blue;">
+                                                    Down Votes
+                                                    <i class="fas fa-snowflake ml-1"></i>
+                                                </div>
+                                                <div class="md-3 ml-1" style="color:blue;">
+                                                    ${vote.getDownSize()}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </c:forEach>    
                         </div>
@@ -283,26 +293,29 @@
                         <div class="row" style="overflow-y: scroll; max-height: 16em; max-width: 100%;">
                             <c:forEach items="${allVotes}" var="vote">
                                 <div class="col-md-4 p-3">
-                                    <div class="rounded p-3" style="border: 1px solid grey;">
-                                        <h4>${vote.getDescription()}</h4>
-                                        <p>von: ${vote.getCreator().getUsername()}</p>
-                                        <div class="row">
-                                            <div class="md-3 ml-1" style="color:red;">
-                                                Up Votes
-                                                <i class="fab fa-hotjar ml-1"></i>
-                                            </div>
-                                            <div class="md-3 ml-1" style="color:red;">
-                                                ${vote.getUpSize()}
-                                            </div>
-                                            <div class="md-3 ml-5" style="color:blue;">
-                                                Down Votes
-                                                <i class="fas fa-snowflake ml-1"></i>
-                                            </div>
-                                            <div class="md-3 ml-1" style="color:blue;">
-                                                ${vote.getDownSize()}
+                                    <a href="<c:url value="/app/voteit/${vote.getId()}"/>">
+                                        <div class="rounded p-3" style="border: 1px solid grey;">
+                                            <h4>${vote.getDescription()}</h4>
+                                            <p>von: ${vote.getCreator().getUsername()}</p>
+
+                                            <div class="row">
+                                                <div class="md-3 ml-1" style="color:red;">
+                                                    Up Votes
+                                                    <i class="fab fa-hotjar ml-1"></i>
+                                                </div>
+                                                <div class="md-3 ml-1" style="color:red;">
+                                                    ${vote.getUpSize()}
+                                                </div>
+                                                <div class="md-3 ml-5" style="color:blue;">
+                                                    Down Votes
+                                                    <i class="fas fa-snowflake ml-1"></i>
+                                                </div>
+                                                <div class="md-3 ml-1" style="color:blue;">
+                                                    ${vote.getDownSize()}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </c:forEach>    
                         </div>

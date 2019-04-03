@@ -1,12 +1,12 @@
 package de.dhbw.vote.common.web;
 
+import de.dhbw.vote.common.CustomLogger;
 import de.dhbw.vote.common.ejb.VoterBean;
 import de.dhbw.vote.common.ejb.VoterNotFoundException;
 import de.dhbw.vote.common.jpa.Sex;
 import de.dhbw.vote.common.jpa.Voter;
 import de.dhbw.vote.dashboard.web.DashboardServlet;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -32,6 +32,8 @@ public class ProfileServlet extends HttpServlet  {
     
     public static final String URL = "/myProfile/";
 
+    private final CustomLogger logger = new CustomLogger(ProfileServlet.class);
+    
     @EJB
     VoterBean voterBean;
     
@@ -46,9 +48,9 @@ public class ProfileServlet extends HttpServlet  {
     Voter voter = null;
     
     try {
-        voter = voterBean.findByUserName("MaMu1");
+        voter = voterBean.getCurrentUser();
 
-    } catch (VoterNotFoundException ex) {
+    } catch (Exception ex) {
         Logger.getLogger(DashboardServlet.class.getName()).log(Level.SEVERE, null, ex);
     }
 
@@ -56,6 +58,7 @@ public class ProfileServlet extends HttpServlet  {
         request.setAttribute("voter", voter);
     }
     
+    logger.debug("doGet: " + voter.toString());
     
     // Routing to JSP
     RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/voter/myProfile.jsp");
@@ -68,6 +71,9 @@ public class ProfileServlet extends HttpServlet  {
         
         request.setCharacterEncoding("utf-8");
         
+        //find actual Voter data
+        Voter currentVoter = voterBean.getCurrentUser();
+        
         //new Voter object
         Voter v = new Voter();
         
@@ -79,7 +85,10 @@ public class ProfileServlet extends HttpServlet  {
         v.setAge(Integer.parseInt(request.getParameter("age")));
         v.setSex(Enum.valueOf(Sex.class, request.getParameter("sex")));
         
+        //update Voter data
         Voter vNeu = voterBean.update(v);
+        
+        logger.debug("doPost: " + currentVoter.toString() + v.toString());
         
         response.sendRedirect(request.getContextPath() + this.URL);
     }

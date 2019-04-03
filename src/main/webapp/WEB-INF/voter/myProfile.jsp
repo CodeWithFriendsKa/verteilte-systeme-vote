@@ -67,7 +67,7 @@
                             </select>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success btn-sm mt-4 mb-2">Speicher</button>
+                    <button type="submit" class="btn btn-success btn-sm mt-4 mb-2">Speichern</button>
                 </div>
             </form>
         </div>
