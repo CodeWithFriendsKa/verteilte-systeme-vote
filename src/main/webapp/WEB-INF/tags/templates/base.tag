@@ -34,7 +34,7 @@
             <%-- Menü --%>
             <nav id="menubar" class="navbar sticky-top navbar-dark" style="background-color: white;">
                 
-                <a class="navbar-brand p-0 d-flex">
+                <a href="<c:url value="/dashboard/"/>" style="color:black!important;" class="navbar-brand p-0 d-flex">
                     <i class="fas fa-fire fa-2x mr-2"></i>
                     <h3>Hot or Not</h3>
                 </a>
@@ -51,7 +51,10 @@
                     <a href="<c:url value="/app/dashboard/"/>" class="icon-logout">Dashboard</a>
                 </div>
                 <div class="menuitem">
-                    <a href="<c:url value="/app/createvote/"/>" class="icon-logout">Create Vote</a>
+                    <a href="<c:url value="/myProfile/"/>" class="icon-logout">mein Profil</a>
+                </div>
+                <div class="menuitem">
+                    <a href="<c:url value="/createvote/"/>" class="icon-logout">Create Vote</a>
                 </div>
                 <div class="menuitem">
                     <a href="<c:url value="/app/voteit/"/>" class="icon-logout">Vote It</a>

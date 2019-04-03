@@ -15,49 +15,54 @@
 
 <!-- Google Graphics Dounat Chart -->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load("current", {packages:["corechart"]});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Typ', 'Votes'],
-          ['Up Votes',     ${myUpVotes}],
-          ['Down Votes', ${myDownVotes}]
-        ]);
+<script type="text/javascript">
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+        ['Typ', 'Votes'],
+        ['Up Votes',     ${myUpVotes}],
+        ['Down Votes', ${myDownVotes}]
+    ]);
 
-        var options = {
-          pieHole: 0.4,
-          backgroundColor: { fill:'transparent' },
-        };
+    var options = {
+        colors: ['red', 'blue'],
+        pieHole: 0.4,
+        backgroundColor: { fill:'transparent' },
+    };
 
-        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-        chart.draw(data, options);
-      }
-    </script>
-    
-    <script  type="text/javascript">
-        
-            function buttonChanger(id){
-                for(int i = 0; i < 4; i++){
-                    var text = 'button' + i
-                    var e = document.getElementById(text);
-                    e.disabled = false;
-                }
-            }
-            
-        var sel = document.getElementById("select");
-        sel.addEventListener("change", function(){
-            function changer() {
-                var x = document.getElementById('select').value;
-                var result = 'result' + x;
-                document.getElementById('result0').stlye.display = "none";
-                document.getElementById('result1').stlye.display = "none";
-                document.getElementById('result2').stlye.display = "none";
-                document.getElementById('result3').stlye.display = "none";
-                document.getElementById(result).stlye.display = "inline";
-            }
-        });
-    </script>
+    var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+    chart.draw(data, options);
+    }
+
+    function buttonChanger(el) {
+        var i;
+        for(i = 0; i < 4; i++) {
+            document.getElementById('button' + i).disabled = false;
+        }
+        document.getElementById(el.id).disabled = true;
+
+        var j;
+        for(j=0; j < 4 ; j++) {
+            document.getElementById('result' + j).hidden = true;
+        }
+        var text = 'result' + el.id.charAt(el.id.length-1);
+            document.getElementById(text).hidden = false;
+    }
+
+    function bChanger(ele) {
+        document.getElementById('b0').disabled = false;
+        document.getElementById('b1').disabled = false;
+        document.getElementById('r0').hidden = true;
+        document.getElementById('r1').hidden = true;
+        if(ele.id.charAt(ele.id.length-1) < 2){
+            document.getElementById(ele.id).disabled = true;
+            document.getElementById('r' + ele.id.charAt(ele.id.length-1)).hidden = false;
+        }
+
+    }
+</script>
+
 
 
 <template:base>
@@ -70,7 +75,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="menu">
-        
+
     </jsp:attribute>
 
     <jsp:attribute name="content">
@@ -84,47 +89,229 @@
             </div>
             <div class="col-md-6 mt-5 p-2">
                 <div class="dashBereich rounded p-2">
-                     <h4>Bestes / Schlechtestes Voting</h4>
-                     <select id="select" name="sel" class="custom-select" onchange='changer()'>
-                         <option id='0' value='0'>insgesamt</option>
-                         <option id='1' value='1'>diesen Monat</option>
-                         <option id='2' value='2'>diese Woche</option>
-                         <option id='3' value='3'>heute</option>
-                     </select>
-                     <span>
-                         <button id="button0" type="button" class="btn btn-primary btn-sm" style="width:8em;" disabled onclick="buttonChanger('bestWorstVotings0')">insgesamt</button>
-                         <button id="button1" type="button" class="btn btn-primary btn-sm" style="width:8em;" onclick="buttonChanger('bestWorstVotings1')">diesen Monat</button>
-                         <button id="button2" type="button" class="btn btn-primary btn-sm" style="width:8em;" onclick="buttonChanger('bestWorstVotings2')">diese Woche</button>
-                         <button id="button3" type="button" class="btn btn-primary btn-sm" style="width:8em;" onclick="buttonChanger('bestWorstVotings3')">heute</button>
-                     </span>
-                     <div id="result0" >
-                         <div class="row">
-                             <div class="col-md-5 m-2">
-                                 
-                             </div>
-                             <div class="col-md-5 m-2">
-                                 
-                             </div>
-                         </div>
-                     </div>
-                     <div id="result1" style="display:none">Result1</div>
-                     <div id="result2" style="display:none">Result2</div>
-                     <div id="result3" style="display:none">Result3</div>
+                    <h4>Bestes / Schlechtestes Voting</h4>
+                    <span>
+                        <button id="button0" type="button" class="btn btn-success btn-sm" style="width:8em;" disabled onclick="buttonChanger(this)">insgesamt</button>
+                        <button id="button1" type="button" class="btn btn-success btn-sm" style="width:8em;" onclick="buttonChanger(this)">diesen Monat</button>
+                        <button id="button2" type="button" class="btn btn-success btn-sm" style="width:8em;" onclick="buttonChanger(this)">diese Woche</button>
+                        <button id="button3" type="button" class="btn btn-success btn-sm" style="width:8em;" onclick="buttonChanger(this)">heute</button>
+                    </span>
+                    <div id="result0" >
+                        <div class="row">
+                            <div class="col-md-5 m-2">
+                                <p class="text-danger">Gewinner gesamt:</p>
+                                <div class="rounded p-3" style="border: 1px solid grey;">
+                                    <p>${BestAllTimes.getDescription()}</p>
+                                    <p>von: ${BestAllTimes.getCreator().getUsername()}</p>
+                                    <div class="row">
+                                        <div class="md-6 ml-1" style="color:red;">
+                                            Up Votes
+                                            <i class="fab fa-hotjar ml-1"></i>
+                                        </div>
+                                        <div class="md-6 ml-1" style="color:red;">
+                                            ${BestAllTimes.getUpSize()}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 m-2">
+                                <p class="text-primary">Verlierer gesamt:</p>
+                                <div class="rounded p-3" style="border: 1px solid grey;">
+                                    <p>${WorstAllTimes.getDescription()}</p>
+                                    <p>von: ${WorstAllTimes.getCreator().getUsername()}</p>
+                                    <div class="row">
+                                        <div class="md-6 ml-1" style="color:blue;">
+                                            Down Votes
+                                            <i class="fas fa-snowflake ml-1"></i>
+                                        </div>
+                                        <div class="md-6 ml-1" style="color:blue;">
+                                            ${WorstAllTimes.getDownSize()}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="result1" hidden>
+                        <div class="row">
+                            <div class="col-md-5 m-2">
+                                <p class="text-danger">Monatsgewinner:</p>
+                                <div class="rounded p-3" style="border: 1px solid grey;">
+                                    <p>${BestMonth.getDescription()}</p>
+                                    <p>von: ${BestMonth.getCreator().getUsername()}</p>
+                                    <div class="row">
+                                        <div class="md-6 ml-1" style="color:red;">
+                                            Up Votes
+                                            <i class="fab fa-hotjar ml-1"></i>
+                                        </div>
+                                        <div class="md-6 ml-1" style="color:red;">
+                                            ${BestMonth.getUpSize()}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 m-2">
+                                <p class="text-primary">Monatsverlierer:</p>
+                                <div class="rounded p-3" style="border: 1px solid grey;">
+                                    <p>${WorstMonth.getDescription()}</p>
+                                    <p>von: ${WorstMonth.getCreator().getUsername()}</p>
+                                    <div class="row">
+                                        <div class="md-6 ml-1" style="color:blue;">
+                                            Down Votes
+                                            <i class="fas fa-snowflake ml-1"></i>
+                                        </div>
+                                        <div class="md-6 ml-1" style="color:blue;">
+                                            ${WorstMonth.getDownSize()}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="result2" hidden>
+                        <div class="row">
+                            <div class="col-md-5 m-2">
+                                <p class="text-danger">Wochengewinner:</p>
+                                <div class="rounded p-3" style="border: 1px solid grey;">
+                                    <p>${BestWeek.getDescription()}</p>
+                                    <p>von: ${BestWeek.getCreator().getUsername()}</p>
+                                    <div class="row">
+                                        <div class="md-6 ml-1" style="color:red;">
+                                            Up Votes
+                                            <i class="fab fa-hotjar ml-1"></i>
+                                        </div>
+                                        <div class="md-6 ml-1" style="color:red;">
+                                            ${BestWeek.getUpSize()}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 m-2">
+                                <p class="text-primary">Wochenverlierer:</p>
+                                <div class="rounded p-3" style="border: 1px solid grey;">
+                                    <p>${WorstWeek.getDescription()}</p>
+                                    <p>von: ${WorstWeek.getCreator().getUsername()}</p>
+                                    <div class="row">
+                                        <div class="md-6 ml-1" style="color:blue;">
+                                            Down Votes
+                                            <i class="fas fa-snowflake ml-1"></i>
+                                        </div>
+                                        <div class="md-6 ml-1" style="color:blue;">
+                                            ${WorstWeek.getDownSize()}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="result3" hidden>
+                        <div class="row">
+                            <div class="col-md-5 m-2">
+                                <p class="text-danger">Tagesgewinner:</p>
+                                <div class="rounded p-3" style="border: 1px solid grey;">
+                                    <p>${BestDay.getDescription()}</p>
+                                    <p>von: ${BestDay.getCreator().getUsername()}</p>
+                                    <div class="row">
+                                        <div class="md-6 ml-1" style="color:red;">
+                                            Up Votes
+                                            <i class="fab fa-hotjar ml-1"></i>
+                                        </div>
+                                        <div class="md-6 ml-1" style="color:red;">
+                                            ${BestDay.getUpSize()}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 m-2">
+                                <p class="text-primary">Tagesverlierer:</p>
+                                <div class="rounded p-3" style="border: 1px solid grey;">
+                                    <p>${WorstDay.getDescription()}</p>
+                                    <p>von: ${WorstDay.getCreator().getUsername()}</p>
+                                    <div class="row">
+                                        <div class="md-6 ml-1" style="color:blue;">
+                                            Down Votes
+                                            <i class="fas fa-snowflake ml-1"></i>
+                                        </div>
+                                        <div class="md-6 ml-1" style="color:blue;">
+                                            ${WorstDay.getDownSize()}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12 mt-2 p-2">
-                <div class="dashBereich rounded p-2">
-                    <h4>Neue Votings</h4>
-                    
-                    <c:forEach items="${myVotes}" var="votes">
-                        
-                    </c:forEach>
-                    
+                <div class="dashBereich rounded p-2" >
+
+                    <h4 class='mr-2 d-inline'>Neue Votings von: </h4>
+                    <button id="b0" type="button" class="btn btn-success btn-sm d-inline" style="width:8em;" disabled onclick="bChanger(this)">mir</button>
+                    <button id="b1" type="button" class="btn btn-success btn-sm d-inline" style="width:8em;" onclick="bChanger(this)">allen</button>
+
+                    <div id="r0">
+                        <div class="row" style="overflow-y: scroll; max-height: 16em; max-width: 100%;">
+                            <c:forEach items="${myVotes}" var="vote">
+                                <div class="col-md-4 p-3">
+                                    <div class="rounded p-3" style="border: 1px solid grey;">
+                                        <h4>${vote.getDescription()}</h4>
+                                        <p>von: ${vote.getCreator().getUsername()}</p>
+                                        <div class="row">
+                                            <div class="md-3 ml-1" style="color:red;">
+                                                Up Votes
+                                                <i class="fab fa-hotjar ml-1"></i>
+                                            </div>
+                                            <div class="md-3 ml-1" style="color:red;">
+                                                ${vote.getUpSize()}
+                                            </div>
+                                            <div class="md-3 ml-5" style="color:blue;">
+                                                Down Votes
+                                                <i class="fas fa-snowflake ml-1"></i>
+                                            </div>
+                                            <div class="md-3 ml-1" style="color:blue;">
+                                                ${vote.getDownSize()}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>    
+                        </div>
+                    </div>
+                    <div id="r1" hidden>
+                        <div class="row" style="overflow-y: scroll; max-height: 16em; max-width: 100%;">
+                            <c:forEach items="${allVotes}" var="vote">
+                                <div class="col-md-4 p-3">
+                                    <div class="rounded p-3" style="border: 1px solid grey;">
+                                        <h4>${vote.getDescription()}</h4>
+                                        <p>von: ${vote.getCreator().getUsername()}</p>
+                                        <div class="row">
+                                            <div class="md-3 ml-1" style="color:red;">
+                                                Up Votes
+                                                <i class="fab fa-hotjar ml-1"></i>
+                                            </div>
+                                            <div class="md-3 ml-1" style="color:red;">
+                                                ${vote.getUpSize()}
+                                            </div>
+                                            <div class="md-3 ml-5" style="color:blue;">
+                                                Down Votes
+                                                <i class="fas fa-snowflake ml-1"></i>
+                                            </div>
+                                            <div class="md-3 ml-1" style="color:blue;">
+                                                ${vote.getDownSize()}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>    
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
         </div>
-        
+
     </jsp:attribute>
 </template:base>
