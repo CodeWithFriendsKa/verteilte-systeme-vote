@@ -64,6 +64,18 @@ public class DashboardServlet extends HttpServlet {
         request.setAttribute("myVotes", votes);
     }
     
+    //Find all votes
+    List<UpDownVote> allVotes = new ArrayList();
+    try {
+        //ToDo: Ersetze den HardCode MaMu1 durch voterBean.getCurrentUser();
+        allVotes = upDownVoteBean.findAll();
+    } catch (Exception ex) {
+        Logger.getLogger(DashboardServlet.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    if(allVotes != null) {
+        request.setAttribute("allVotes", allVotes);
+    }
+    
     //Find votes of all time
     List<UpDownVote> votesBestAllTime = new ArrayList();
     List<UpDownVote> votesWorstAllTime = new ArrayList();

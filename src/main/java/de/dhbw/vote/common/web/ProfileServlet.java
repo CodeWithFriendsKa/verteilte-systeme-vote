@@ -2,6 +2,7 @@ package de.dhbw.vote.common.web;
 
 import de.dhbw.vote.common.ejb.VoterBean;
 import de.dhbw.vote.common.ejb.VoterNotFoundException;
+import de.dhbw.vote.common.jpa.Sex;
 import de.dhbw.vote.common.jpa.Voter;
 import de.dhbw.vote.dashboard.web.DashboardServlet;
 import java.io.IOException;
@@ -38,10 +39,7 @@ public class ProfileServlet extends HttpServlet  {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
-    ArrayList sexList = new ArrayList();
-    sexList.add("MÄNNLICH");
-    sexList.add("WEIBLICH");
-    sexList.add("DIVERS");
+    Sex[] sexList = Sex.values();
     request.setAttribute("sexList", sexList);
         
     //Find votes of all time
@@ -62,7 +60,27 @@ public class ProfileServlet extends HttpServlet  {
     // Routing to JSP
     RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/voter/myProfile.jsp");
     dispatcher.forward(request, response);
+    }
     
-    
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        request.setCharacterEncoding("utf-8");
+        
+        //new Voter object
+        Voter v = new Voter();
+        
+        //get the variables and set it to the username
+        v.setUsername(request.getParameter("username"));
+        v.setMail(request.getParameter("mail"));
+        v.setPrename(request.getParameter("prename"));
+        v.setName(request.getParameter("name"));
+        v.setAge(Integer.parseInt(request.getParameter("age")));
+        v.setSex(Enum.valueOf(Sex.class, request.getParameter("sex")));
+        
+        Voter vNeu = voterBean.update(v);
+        
+        response.sendRedirect(request.getContextPath() + this.URL);
     }
 }

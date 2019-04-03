@@ -33,28 +33,28 @@
                     <h4 class="mt-4 mb-4">Mein Profil</h4>
                     <div class="row">
                         <div class="col-md-6">
-                            <label for="id">Username: </label>
-                            <input id="id" class="form-control form-control-sm" type="text" readonly value="${voter.username}" required>
+                            <label for="username">Username: </label>
+                            <input id="username" name="username" class="form-control form-control-sm" type="text" readonly value="${voter.username}" required>
                         </div>
                         <div class="col-md-6">
                             <label for="mail">E-Mail: </label>
-                            <input id="mail" class="form-control form-control-sm" type="text" value="${voter.mail}" required>
+                            <input id="mail" name="mail" class="form-control form-control-sm" type="text" value="${voter.mail}" required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <label for="prename">Vorname: </label>
-                            <input id="prename" class="form-control form-control-sm" type="text" value="${voter.prename}" required>
+                            <input id="prename" name="prename" class="form-control form-control-sm" type="text" value="${voter.prename}" required>
                         </div>
                         <div class="col-md-6">
                             <label for="name">Name: </label>
-                            <input id="name" class="form-control form-control-sm" type="text" value="${voter.name}" required>
+                            <input id="name" name="name" class="form-control form-control-sm" type="text" value="${voter.name}" required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <label for="age">Alter: </label>
-                            <input id="age" class="form-control form-control-sm" type="number" value="${voter.age}" required>
+                            <input id="age" name="age" class="form-control form-control-sm" type="number" value="${voter.age}" required>
                         </div>
                         <div class="col-md-6">
                             <label for="sex">Geschlecht: </label>
