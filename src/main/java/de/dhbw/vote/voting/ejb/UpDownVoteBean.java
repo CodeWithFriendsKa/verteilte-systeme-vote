@@ -13,6 +13,8 @@ import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 /***
+ * Beanklasse, welche Datenbankzugriffe für UpDownVotes ermöglicht
+ * 
  * Trippleprogramming
  * @author Rouven Brost
  * @author Christopher Pschibila
@@ -24,9 +26,21 @@ public class UpDownVoteBean extends EntityBean<UpDownVote, Long>{
     private static final CustomLogger logger = new CustomLogger(UpDownVoteBean.class);
     @EJB
     VoterBean voterBean;
+    
+    /***
+     * 
+     */
     public UpDownVoteBean(){
         super(UpDownVote.class);
     }    
+    
+    /***
+     * 
+     * @param username
+     * @return
+     * @throws VoterNotFoundException
+     * @throws UpDownVoteNotFoundException 
+     */
     public List<UpDownVote> findVotesByUsername(String username) throws VoterNotFoundException, UpDownVoteNotFoundException {
         List<UpDownVote> votes = new ArrayList();
         Voter voter = voterBean.findByUserName(username);
@@ -37,6 +51,12 @@ public class UpDownVoteBean extends EntityBean<UpDownVote, Long>{
                 .getResultList();
         return votes;
     }
+    
+    /***
+     * 
+     * @return
+     * @throws UpDownVoteNotFoundException 
+     */
     public List<UpDownVote> findBestVoteAllTime() throws UpDownVoteNotFoundException{
         List<UpDownVote> votes = new ArrayList();
         
@@ -48,6 +68,12 @@ public class UpDownVoteBean extends EntityBean<UpDownVote, Long>{
         
         return votes;
     }
+    
+    /***
+     * 
+     * @return
+     * @throws UpDownVoteNotFoundException 
+     */
     public List<UpDownVote> findWorstVoteAllTime() throws UpDownVoteNotFoundException{
         List<UpDownVote> votes = new ArrayList();
         
@@ -59,6 +85,12 @@ public class UpDownVoteBean extends EntityBean<UpDownVote, Long>{
         
         return votes;
     }
+    
+    /***
+     * 
+     * @return
+     * @throws UpDownVoteNotFoundException 
+     */
     public List<UpDownVote> findBestVoteOfMonth() throws UpDownVoteNotFoundException{
         List<UpDownVote> votes = new ArrayList();
         Date now = DateExtensions.now();
@@ -74,6 +106,12 @@ public class UpDownVoteBean extends EntityBean<UpDownVote, Long>{
                 .getResultList();
         return votes;
     }
+    
+    /***
+     * 
+     * @return
+     * @throws UpDownVoteNotFoundException 
+     */
     public List<UpDownVote> findWorstVoteOfMonth() throws UpDownVoteNotFoundException{
         List<UpDownVote> votes = new ArrayList();
         Date now = DateExtensions.now();
@@ -89,6 +127,12 @@ public class UpDownVoteBean extends EntityBean<UpDownVote, Long>{
                 .getResultList();
         return votes;
     }    
+    
+    /***
+     * 
+     * @return
+     * @throws UpDownVoteNotFoundException 
+     */
     public List<UpDownVote> findBestVoteOfWeek() throws UpDownVoteNotFoundException{     
         List<UpDownVote> votes = new ArrayList();
         Date now = DateExtensions.now();
@@ -104,6 +148,12 @@ public class UpDownVoteBean extends EntityBean<UpDownVote, Long>{
                 .getResultList();
         return votes;
     }
+    
+    /***
+     * 
+     * @return
+     * @throws UpDownVoteNotFoundException 
+     */
     public List<UpDownVote> findWorstVoteOfWeek() throws UpDownVoteNotFoundException{
         List<UpDownVote> votes = new ArrayList();
         Date now = DateExtensions.now();
@@ -119,6 +169,12 @@ public class UpDownVoteBean extends EntityBean<UpDownVote, Long>{
                 .getResultList();
         return votes;
     } 
+    
+    /***
+     * 
+     * @return
+     * @throws UpDownVoteNotFoundException 
+     */
     public List<UpDownVote> findBestVoteOfDay() throws UpDownVoteNotFoundException{
         List<UpDownVote> votes = new ArrayList();
         Date now = DateExtensions.now();
@@ -134,6 +190,12 @@ public class UpDownVoteBean extends EntityBean<UpDownVote, Long>{
                 .getResultList();
         return votes;
     }
+    
+    /***
+     * 
+     * @return
+     * @throws UpDownVoteNotFoundException 
+     */
     public List<UpDownVote> findWorstVoteOfDay() throws UpDownVoteNotFoundException{
         List<UpDownVote> votes = new ArrayList();
         Date now = DateExtensions.now();

@@ -1,14 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package de.dhbw.vote.dashboard.ejb;
 
-/**
- *
- * @author codekeks
+import javax.ejb.Stateless;
+
+/***
+ * 
+ * Trippleprogramming
+ * @author Rouven Brost
+ * @author Christopher Pschibila
+ * @author codekeks (Tamino Fischer)
  */
+@Stateless
 public class DashboardBean {
     
 }

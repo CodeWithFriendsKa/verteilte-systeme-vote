@@ -1,5 +1,9 @@
 package de.dhbw.vote.init;
+
 /***
+ * Eigene Exceptionklasse, welche geworfen wird, wenn beim anlegen der
+ * Demodaten ein Fehler passiert 
+ * 
  * Trippleprogramming
  * @author Rouven Brost
  * @author Christopher Pschibila

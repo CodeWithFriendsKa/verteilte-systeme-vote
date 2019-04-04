@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package de.dhbw.vote.voting.web;
 
 import de.dhbw.vote.common.CustomLogger;
@@ -11,7 +6,6 @@ import de.dhbw.vote.common.jpa.Voter;
 import de.dhbw.vote.voting.ejb.UpDownVoteBean;
 import de.dhbw.vote.voting.jpa.UpDownVote;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -21,21 +15,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
+/***
+
+ * Trippleprogramming
  * @author Rouven Brost
+ * @author Christopher Pschibila
+ * @author codekeks (Tamino Fischer)
  */
 @WebServlet(urlPatterns = {"/app/voteit/*"})
 public class VoteItServlet extends HttpServlet {
-
     private final CustomLogger logger = new CustomLogger(VoteItServlet.class);
-    
     @EJB
     UpDownVoteBean upDownVoteBean;
-
     @EJB
     VoterBean voterBean;
 
+    /***
+     * 
+     * @param request
+     * @param response
+     * @throws IOException
+     * @throws ServletException 
+     */
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
@@ -77,5 +78,4 @@ public class VoteItServlet extends HttpServlet {
 
         }
     }
-
 }

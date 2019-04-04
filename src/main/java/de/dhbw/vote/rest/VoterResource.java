@@ -11,9 +11,13 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-/**
- *
- * @author codekeks
+/***
+ * REST Endpoint für einen Voter
+ * 
+ * Trippleprogramming
+ * @author Rouven Brost
+ * @author Christopher Pschibila
+ * @author codekeks (Tamino Fischer)
  */
 @Path("Voter")
 @Consumes(MediaType.APPLICATION_JSON)

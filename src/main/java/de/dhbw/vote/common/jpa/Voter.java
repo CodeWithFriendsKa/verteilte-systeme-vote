@@ -18,7 +18,11 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 /***
+ * Klasse für einen Voter, diese beinhaltet klassiche User- sowie
+ * Profilattribute
+ * 
  * Trippleprogramming
  * @author Rouven Brost
  * @author Christopher Pschibila
@@ -27,7 +31,6 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name= "VOTER")
 public class Voter implements Serializable {
-    
     private static final long serialVersionUID = 1L;
     private static final char[] HEX_ARRAY = "0123456789ABCDEF".toCharArray();
     @Id
@@ -58,6 +61,16 @@ public class Voter implements Serializable {
     @Column(name = "SEX")
     private Sex sex;
 
+    /***
+     * 
+     * @param username
+     * @param mail
+     * @param password
+     * @param prename
+     * @param name
+     * @param age
+     * @param sex 
+     */
     public Voter(String username, String mail, String password, String prename, String name, int age, Sex sex) {
         this.username = username;
         this.mail = mail;
@@ -68,6 +81,10 @@ public class Voter implements Serializable {
         this.age = age;
         this.sex = sex;
     }
+    
+    /***
+     * 
+     */
     public Voter() {
         this.username = "";
         this.mail = "";
@@ -78,17 +95,14 @@ public class Voter implements Serializable {
         this.sex = Sex.UNBEKANNT;
     }
 
-    public String getUsername() {return username;}
+    /***
+     * 
+     * @return 
+     */
+    public String getUsername() {return username;}   
     public void setUsername(String username) {this.username = username;}
     public String getMail() {return mail;}
     public void setMail(String mail) {this.mail = mail;}
-    public void setPassword(String password) {
-        this.password.password = password;
-        this.passwordHash = this.hashPassword(password);
-    }
-    public Password getPassword() {
-        return this.password;
-    }
     public String getPrename() {return prename;}
     public void setPrename(String prename) {this.prename = prename;}
     public String getName() {return name;}
@@ -97,7 +111,19 @@ public class Voter implements Serializable {
     public void setAge(int age) {this.age = age;}
     public Sex getSex() {return sex;}
     public void setSex(Sex sex) {this.sex = sex;}
+    public void setPassword(String password) {
+        this.password.password = password;
+        this.passwordHash = this.hashPassword(password);
+    }
+    public Password getPassword() {
+        return this.password;
+    }    
     
+    /***
+     * 
+     * @param password
+     * @return 
+     */
     private String hashPassword(String password) {
         byte[] hash;
 
@@ -125,14 +151,19 @@ public class Voter implements Serializable {
 
         return new String(hashHex);
     }
+    
+    /***
+     * 
+     * @param password
+     * @return 
+     */
     public boolean checkPassword(String password) {
         return this.passwordHash.equals(this.hashPassword(password));
     }
-    //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc="Zuordnung zu Benutzergruppen">
-    /**
-     * @return Eine unveränderliche Liste aller Benutzergruppen
+    /***
+     * 
+     * @return 
      */
     public List<String> getGroups() {
         List<String> groupsCopy = new ArrayList<>();
@@ -144,10 +175,9 @@ public class Voter implements Serializable {
         return groupsCopy;
     }
 
-    /**
-     * Fügt den Benutzer einer weiteren Benutzergruppe hinzu.
-     *
-     * @param groupname Name der Benutzergruppe
+    /***
+     * 
+     * @param groupname 
      */
     public void addToGroup(String groupname) {
         if (!this.groups.contains(groupname)) {
@@ -155,20 +185,27 @@ public class Voter implements Serializable {
         }
     }
 
-    /**
-     * Entfernt den Benutzer aus der übergebenen Benutzergruppe.
-     *
-     * @param groupname Name der Benutzergruppe
+    /***
+     * 
+     * @param groupname 
      */
     public void removeFromGroup(String groupname) {
         this.groups.remove(groupname);
     }
-
+    // <editor-fold defaultstate="collapsed" desc=" ${Override Methoden} ">
+    /***
+     * 
+     * @return 
+     */
     @Override
     public String toString() {
         return "Voter{" + "username=" + username + ", password=" + password + ", passwordHash=" + passwordHash + ", groups=" + groups + ", mail=" + mail + ", prename=" + prename + ", name=" + name + ", age=" + age + ", sex=" + sex + '}';
     }
 
+    /***
+     * 
+     * @return 
+     */
     @Override
     public int hashCode() {
         int hash = 7;
@@ -184,6 +221,11 @@ public class Voter implements Serializable {
         return hash;
     }
 
+    /***
+     * 
+     * @param obj
+     * @return 
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -225,5 +267,5 @@ public class Voter implements Serializable {
         }
         return true;
     }
-   
+    // </editor-fold>
 }

@@ -1,6 +1,8 @@
 package de.dhbw.vote.common.ejb;
 
 /***
+ * Eigene Exceptionklasse, welche geworfen wird, wenn kein Voter gefunden wurde
+ * 
  * Trippleprogramming
  * @author Rouven Brost
  * @author Christopher Pschibila

@@ -1,12 +1,3 @@
-/*
- * Copyright © 2018 Dennis Schulmeister-Zimolong
- * 
- * E-Mail: dhbw@windows3.de
- * Webseite: https://www.wpvs.de/
- * 
- * Dieser Quellcode ist lizenziert unter einer
- * Creative Commons Namensnennung 4.0 International Lizenz.
- */
 package de.dhbw.vote.common.web;
 
 import java.io.IOException;
@@ -16,17 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet, dass den Anwender ausloggt (die Session beendet) und ihn dann
- * auf die Startseite weiterleitet.
+/***
+ * Trippleprogramming
+ * @author Rouven Brost
+ * @author Christopher Pschibila
+ * @author codekeks (Tamino Fischer)
  */
 @WebServlet(urlPatterns = {"/logout/"})
 public class LogoutServlet extends HttpServlet {
-    
     public static final String URL = "/logout/";
 
-    /**
-     * GET-Anfrage: Seite anzeigen
+    /***
      * 
      * @param request
      * @param response

@@ -1,12 +1,3 @@
-/*
- * Copyright © 2018 Dennis Schulmeister-Zimolong
- * 
- * E-Mail: dhbw@windows3.de
- * Webseite: https://www.wpvs.de/
- * 
- * Dieser Quellcode ist lizenziert unter einer
- * Creative Commons Namensnennung 4.0 International Lizenz.
- */
 package de.dhbw.vote.common.ejb;
 
 import java.util.ArrayList;
@@ -17,11 +8,13 @@ import javax.ejb.Stateless;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
-/**
- * Kleine EJB, die dafür genutzt werden kann, die Werte einer Entity zu
- * validieren, bevor diese gespeichert wird. Zwar validiert der Entity Manager
- * die Bean beim Speichern ebenfalls, da das aber erst am Ende der Transaktion
- * erfolgt, ist es schwer, rechtzeitig darauf zu reagieren.
+/***
+ * Beanklasse für Validierung
+ * 
+ * Trippleprogramming
+ * @author Rouven Brost
+ * @author Christopher Pschibila
+ * @author codekeks (Tamino Fischer)
  */
 @Stateless
 public class ValidationBean {

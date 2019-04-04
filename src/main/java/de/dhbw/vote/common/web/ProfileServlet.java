@@ -2,7 +2,6 @@ package de.dhbw.vote.common.web;
 
 import de.dhbw.vote.common.CustomLogger;
 import de.dhbw.vote.common.ejb.VoterBean;
-import de.dhbw.vote.common.ejb.VoterNotFoundException;
 import de.dhbw.vote.common.jpa.Sex;
 import de.dhbw.vote.common.jpa.Voter;
 import de.dhbw.vote.dashboard.web.DashboardServlet;
@@ -17,26 +16,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author chp
+/***
+ * Trippleprogramming
+ * @author Rouven Brost
+ * @author Christopher Pschibila
+ * @author codekeks (Tamino Fischer)
  */
 @WebServlet(urlPatterns = {"/myProfile/"})
 public class ProfileServlet extends HttpServlet  {
-    
     public static final String URL = "/myProfile/";
-
     private final CustomLogger logger = new CustomLogger(ProfileServlet.class);
-    
     @EJB
     VoterBean voterBean;
     
+    /***
+     * 
+     * @param request
+     * @param response
+     * @throws IOException
+     * @throws ServletException 
+     */
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
@@ -65,6 +64,13 @@ public class ProfileServlet extends HttpServlet  {
     dispatcher.forward(request, response);
     }
     
+    /***
+     * 
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException 
+     */
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

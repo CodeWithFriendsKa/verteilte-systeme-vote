@@ -14,6 +14,7 @@ import javax.annotation.security.RunAs;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+
 /***
  * Trippleprogramming
  * @author Rouven Brost
@@ -24,7 +25,6 @@ import javax.ejb.Startup;
 @Singleton
 @RunAs("app-user")
 public class CreateDemo {
-    
     private final CustomLogger logger = new CustomLogger(CreateDemo.class);
     @EJB
     private VoterBean voterBean;
@@ -59,6 +59,11 @@ public class CreateDemo {
             logger.error("Error while saving demo data", e);
         }
     }
+    
+    /***
+     * 
+     * @throws DemoException 
+     */
     private void saveDemoVoter() throws DemoException{
         try{
             String prename = "Max";
@@ -80,6 +85,11 @@ public class CreateDemo {
             throw new DemoException("DemoExeption",e);
         }
     }
+    
+    /***
+     * 
+     * @throws DemoException 
+     */
     private void saveDemoUpDownVote() throws DemoException {
         try {
             List<Voter> voters = voterBean.findAll();
@@ -100,6 +110,11 @@ public class CreateDemo {
             throw new DemoException("DemoException", e);
         }
     }
+    
+    /***
+     * 
+     * @throws DemoException 
+     */
     private void showDemoVoter() throws DemoException{
         try {
             List<Voter> voters = voterBean.findAll();
@@ -108,6 +123,11 @@ public class CreateDemo {
             throw new DemoException("DemoExeption", e);
         }
     }
+    
+    /***
+     * 
+     * @throws DemoException 
+     */
     private void showDemoUpDownVote() throws DemoException{
         try {
             List<UpDownVote> upDowns = upDownVoteBean.findAll();
@@ -116,6 +136,11 @@ public class CreateDemo {
             throw new DemoException("DemoException", e);
         }
     }
+    
+    /***
+     * 
+     * @throws DemoException 
+     */
     private void testUpDownVoteEjb() throws DemoException{
         try {
             logger.debug("DEMO TEST");

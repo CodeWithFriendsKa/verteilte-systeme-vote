@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package de.dhbw.vote.voting.web;
 
 import de.dhbw.vote.common.ejb.VoterBean;
 import de.dhbw.vote.common.jpa.Voter;
-import de.dhbw.vote.dashboard.web.DashboardServlet;
 import de.dhbw.vote.voting.ejb.UpDownVoteBean;
 import de.dhbw.vote.voting.jpa.Category;
 import de.dhbw.vote.voting.jpa.UpDownVote;
@@ -20,21 +14,27 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
+/***
+ * Trippleprogramming
  * @author Rouven Brost
+ * @author Christopher Pschibila
+ * @author codekeks (Tamino Fischer)
  */
 @WebServlet(urlPatterns = {"/createvote/"})
 public class CreateVoteServlet extends HttpServlet {
-    
     public static final String URL = "/createvote/";
-    
     @EJB
     UpDownVoteBean upDownVoteBean;
-    
     @EJB
     VoterBean voterBean;
     
+    /***
+     * 
+     * @param request
+     * @param response
+     * @throws IOException
+     * @throws ServletException 
+     */
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
     throws IOException, ServletException {
@@ -46,6 +46,13 @@ public class CreateVoteServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
     
+    /***
+     * 
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException 
+     */
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

@@ -23,10 +23,18 @@ public class CustomLogger {
     private static final String ANSI_CYAN = "\u001B[36m";
     private static final String ANSI_WHITE = "\u001B[37m";
 
+    /***
+     * 
+     * @param genericClass 
+     */
     public CustomLogger(Class<?> genericClass) {
         this.genericClass = genericClass;
     }
     
+    /***
+     * 
+     * @param message 
+     */
     public void debug(String message){
         System.out.println(
                 ANSI_CYAN +
@@ -37,6 +45,12 @@ public class CustomLogger {
                 ANSI_RESET
         );
     }
+    
+    /***
+     * 
+     * @param message
+     * @param e 
+     */
     public void error(String message, Exception e){
         System.out.println(
                 ANSI_RED +

@@ -1,16 +1,7 @@
-/*
- * Copyright © 2018 Dennis Schulmeister-Zimolong
- * 
- * E-Mail: dhbw@windows3.de
- * Webseite: https://www.wpvs.de/
- * 
- * Dieser Quellcode ist lizenziert unter einer
- * Creative Commons Namensnennung 4.0 International Lizenz.
- */
 package de.dhbw.vote.common.web;
 
 import de.dhbw.vote.common.CustomLogger;
-import de.dhbw.vote.common.ejb.UserAlreadyExistsException;
+import de.dhbw.vote.common.ejb.VoterAlreadyExistsException;
 import de.dhbw.vote.common.ejb.ValidationBean;
 import de.dhbw.vote.common.ejb.VoterBean;
 import de.dhbw.vote.common.jpa.Sex;
@@ -27,19 +18,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- * Servlet für die Registrierungsseite. Hier kann sich ein neuer Benutzer
- * registrieren. Anschließend wird der auf die Startseite weitergeleitet.
+/***
+ * Trippleprogramming
+ * @author Rouven Brost
+ * @author Christopher Pschibila
+ * @author codekeks (Tamino Fischer)
  */
 @WebServlet(urlPatterns = {"/signup/"})
 public class SignUpServlet extends HttpServlet {
-    
     private static final CustomLogger logger = new CustomLogger(SignUpServlet.class);
     @EJB
     private ValidationBean validationBean;
     @EJB
     private VoterBean voterBean;
     
+    /***
+     * 
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException 
+     */
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
@@ -52,6 +51,13 @@ public class SignUpServlet extends HttpServlet {
         session.removeAttribute("signup_form");
     }
     
+    /***
+     * 
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException 
+     */
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
@@ -100,7 +106,7 @@ public class SignUpServlet extends HttpServlet {
             response.sendRedirect("/vote/app/dashboard/");
             } 
         } 
-        catch (UserAlreadyExistsException ex) {
+        catch (VoterAlreadyExistsException ex) {
             logger.error("Der Voter existiert bereits", ex);
             request.getRequestDispatcher("/WEB-INF/login/error.jsp").forward(request, response);
         }

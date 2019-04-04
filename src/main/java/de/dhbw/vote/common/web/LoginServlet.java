@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package de.dhbw.vote.common.web;
 
 import de.dhbw.vote.common.CustomLogger;
@@ -18,18 +13,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author codekeks
+/***
+ * Trippleprogramming
+ * @author Rouven Brost
+ * @author Christopher Pschibila
+ * @author codekeks (Tamino Fischer)
  */
 @WebServlet(urlPatterns = {"/login/"})
 public class LoginServlet extends HttpServlet {
-    
     private final CustomLogger logger = new CustomLogger(LoginServlet.class);
     @EJB
     VoterBean voterBean;
-    /**
-     * GET-Anfrage: Seite anzeigen
+
+    /***
      * 
      * @param request
      * @param response
@@ -43,6 +39,14 @@ public class LoginServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login/login.jsp");
         dispatcher.forward(request, response);
     }
+    
+    /***
+     * 
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException 
+     */
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException { 

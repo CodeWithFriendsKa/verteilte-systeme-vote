@@ -1,6 +1,9 @@
 package de.dhbw.vote.voting.ejb;
 
 /***
+ * Eigene Exception welche geworfen wird, wenn das gesuchte UpDownVote
+ * nicht gefunden wird
+ * 
  * Trippleprogramming
  * @author Rouven Brost
  * @author Christopher Pschibila

@@ -1,5 +1,7 @@
 package de.dhbw.vote.voting.jpa;
 /***
+ * Enumeration für eine UpDownVoteKategorie
+ * 
  * Trippleprogramming
  * @author Rouven Brost
  * @author Christopher Pschibila
@@ -7,6 +9,7 @@ package de.dhbw.vote.voting.jpa;
  */
 public enum Category {
     HOT_OR_NOT, AUTO, ESSEN, SPORT, UNBEKANNT;
+    
     /**
      * Bezeichnung ermitteln
      * @return Bezeichnung

@@ -1,5 +1,8 @@
 package de.dhbw.vote.common.jpa;
+
 /***
+ * Enumeration für das Geschlecht eines voters
+ * 
  * Trippleprogramming
  * @author Rouven Brost
  * @author Christopher Pschibila
@@ -7,6 +10,7 @@ package de.dhbw.vote.common.jpa;
  */
 public enum Sex {
     MÄNNLICH, WEIBLICH, DIVERS, UNBEKANNT;
+    
     /**
      * Bezeichnung ermitteln
      * @return Bezeichnung
@@ -23,6 +27,12 @@ public enum Sex {
                 return this.toString();
         }
     }
+    
+    /***
+     * 
+     * @param sex
+     * @return 
+     */
     public static Sex getSex(String sex){
         switch (sex) {
             case "männlich":

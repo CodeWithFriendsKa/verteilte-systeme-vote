@@ -18,9 +18,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /***
+ * Entityklasse, welche alle nötigen Attirbute für ein Voting enthält
+ * 
  * Trippleprogramming
  * @author Rouven Brost
  * @author Christopher Pschibila
@@ -29,7 +30,6 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name= "UP_DOWN_VOTE")
 public class UpDownVote implements Serializable {
-    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -55,6 +55,15 @@ public class UpDownVote implements Serializable {
     @Column(name = "CATEGORY")
     private Category category;
 
+    /***
+     * 
+     * @param description
+     * @param creator
+     * @param upVotes
+     * @param downVotes
+     * @param image
+     * @param category 
+     */
     public UpDownVote(String description, Voter creator, List<Voter> upVotes, List<Voter> downVotes, Image image, Category category) {
         this.description = description;
         this.creator = creator;
@@ -66,6 +75,14 @@ public class UpDownVote implements Serializable {
         this.date = DateExtensions.now();
         this.category = category;
     }
+    
+    /***
+     * 
+     * @param description
+     * @param creator
+     * @param upVotes
+     * @param downVotes 
+     */
     public UpDownVote(String description, Voter creator, List<Voter> upVotes, List<Voter> downVotes) {
         this.description = description;
         this.creator = creator;
@@ -77,6 +94,13 @@ public class UpDownVote implements Serializable {
         this.date = DateExtensions.now();
         this.category = Category.UNBEKANNT;
     }    
+    
+    /***
+     * 
+     * @param description
+     * @param creator
+     * @param category 
+     */
     public UpDownVote(String description, Voter creator, Category category) {
         this.description = description;
         this.creator = creator;
@@ -89,6 +113,9 @@ public class UpDownVote implements Serializable {
         this.category = category;
     }
 
+    /***
+     * 
+     */
     public UpDownVote() {
         this.description = "";
         this.creator = new Voter();
@@ -101,6 +128,10 @@ public class UpDownVote implements Serializable {
         this.category = Category.UNBEKANNT;
     }
 
+    /***
+     * 
+     * @return 
+     */
     public Long getId() {return id;}
     public void setId(Long id) {this.id = id;}
     public String getDescription() {return description;}
@@ -122,11 +153,20 @@ public class UpDownVote implements Serializable {
     public Integer getDownSize() {return downSize;}
     public void setDownSize(Integer downSize) {this.downSize = downSize;}
 
+    // <editor-fold defaultstate="collapsed" desc=" ${DESCRIPTION} ">
+    /***
+     * 
+     * @return 
+     */
     @Override
     public String toString() {
         return "UpDownVote{" + "id=" + id + ", description=" + description + ", creator=" + creator + ", upVotes=" + upVotes + ", upSize=" + upSize + ", downVotes=" + downVotes + ", downSize=" + downSize + ", image=" + image + ", date=" + date + ", category=" + category + '}';
     }
 
+    /***
+     * 
+     * @return 
+     */
     @Override
     public int hashCode() {
         int hash = 5;
@@ -143,6 +183,11 @@ public class UpDownVote implements Serializable {
         return hash;
     }
 
+    /***
+     * 
+     * @param obj
+     * @return 
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -187,6 +232,5 @@ public class UpDownVote implements Serializable {
         }
         return true;
     }
-
-    
+    // </editor-fold>
 }
