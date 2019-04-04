@@ -61,24 +61,13 @@ public class VoteItServlet extends HttpServlet {
             request.setAttribute("vote", vote);
 
             //Variable of already voted
-            boolean alreadyVoted = false;
-            logger.debug(Boolean.toString(alreadyVoted));
+            
+            
+            
             List<Voter> upV = vote.getUpVotes();
             List<Voter> downV = vote.getDownVotes();
-            
-            for(int i = 0; i < upV.size(); i++ ){
-                if(currentVoter.equals(upV.get(i))){
-                    alreadyVoted = true;
-                    logger.debug("INSIDE UP");
-                }
-            }
-            for(int j = 0; j < downV.size(); j++){
-                if(currentVoter.equals(downV.get(j))){
-                    alreadyVoted = true;
-                    logger.debug("InSIDE DOWN");
-                }
-            }
-
+            boolean alreadyVoted = ((upV.contains(currentVoter)) || (downV.contains(currentVoter)));
+            logger.debug(Boolean.toString(alreadyVoted));
             request.setAttribute("alreadyVoted", alreadyVoted);
             logger.debug(Boolean.toString(alreadyVoted));
 
