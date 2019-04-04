@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns = {"/app/dashboard/"})
 public class DashboardServlet extends HttpServlet {
 
-    //public static final String URL = "/dashboard/";
+    public static final String URL = "/dashboard/";
     private static final CustomLogger logger = new CustomLogger(DashboardServlet.class);
     @EJB
     UpDownVoteBean upDownVoteBean;
@@ -79,6 +79,7 @@ public class DashboardServlet extends HttpServlet {
             }
             if (allVotes != null) {
                 request.setAttribute("allVotes", allVotes);
+                allVotes.forEach(v -> logger.debug(v.toString() + "TEST999"));
             }
 
             //Find votes of all time

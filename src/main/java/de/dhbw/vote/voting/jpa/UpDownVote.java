@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,18 +36,18 @@ public class UpDownVote implements Serializable {
     @Column(name = "DESCRIPTION")
     private String description;
     @Column(name = "USERNAME", length = 64)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Voter.class)
     //@Size(min = 3, max = 64, message = "Der Benutzername muss zwischen fünf und 64 Zeichen lang sein.")
     @NotNull(message = "Der Benutzername darf nicht leer sein.")
     private Voter creator;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, targetEntity = Voter.class)
     private List<Voter> upVotes;
     @Column(name = "UPSIZE")
-    private int upSize;
-    @OneToMany
+    private Integer upSize;
+    @OneToMany(fetch = FetchType.EAGER, targetEntity = Voter.class)
     private List<Voter> downVotes;
     @Column(name = "DOWNSIZE")
-    private int downSize;
+    private Integer downSize;
     @Column(name = "IMAGE") 
     private Image image;
     @Column(name = "VOTEDATE")
@@ -116,10 +117,10 @@ public class UpDownVote implements Serializable {
     public void setDate(Date date) {this.date = date;}
     public Category getCategory() {return category;}
     public void setCategory(Category category) {this.category = category;}
-    public int getUpSize() {return upSize;}
-    public void setUpSize(int upSize) {this.upSize = upSize;}
-    public int getDownSize() {return downSize;}
-    public void setDownSize(int downSize) {this.downSize = downSize;}
+    public Integer getUpSize() {return upSize;}
+    public void setUpSize(Integer upSize) {this.upSize = upSize;}
+    public Integer getDownSize() {return downSize;}
+    public void setDownSize(Integer downSize) {this.downSize = downSize;}
 
     @Override
     public String toString() {

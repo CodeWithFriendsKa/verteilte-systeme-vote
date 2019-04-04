@@ -1,0 +1,121 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 01.04.2019, 17:45:58
+    Author     : Rouven Brost
+*/
+#picture{
+    height: 300px;
+    width: 400px;
+    border-radius: 5px;
+}
+#hotButton{
+    margin:0 auto;
+    display:block;
+    padding-left: 2em;
+    padding-right: 2em;
+    margin-bottom: 1em;
+}
+#notButton{
+    margin:0 auto;
+    display:block;
+    padding-left: 2em;
+    padding-right: 2em;
+    margin-bottom: 1em;
+}
+.btn-group button {
+    color: white;
+    padding:;
+    cursor: pointer;
+}
+.btn-group:after {
+    content: "";
+    clear: both;
+    display: table;
+}
+#submit-button{
+    margin:0 auto;
+    display:block;
+    padding-left: 2em;
+    padding-right: 2em;
+    margin-bottom: 1em;
+    cursor: pointer;
+}
+#description{
+    width: 53%;
+}
+#category{
+    width: 53%;
+    margin:0 auto;
+    display:block;
+}
+.text-center{
+    padding-bottom: 2em;
+}
+#divPicture {
+  height: 300px;
+  width: 400px;
+  padding: 10px;
+  border: 1px solid #aaaaaa;
+}
+@media screen and (max-width: 600px){
+    #picture{
+    height: 200px;
+    width: 300px;
+    border-radius: 5px;
+}
+#hotButton{
+    margin:0 auto;
+    display:block;
+    padding-left: 1em;
+    padding-right: 1em;
+    margin-bottom: 1em;
+}
+#notButton{
+    margin:0 auto;
+    display:block;
+    padding-left: 1em;
+    padding-right: 1em;
+    margin-bottom: 1em;
+}
+#submit-button{
+    margin:0 auto;
+    display:block;
+    padding-left: 1em;
+    padding-right: 1em;
+    margin-bottom: 1em;
+    cursor: pointer;
+}
+}
+@media screen and (min-width: 1000px){
+    #picture{
+    height: 400px;
+    width: 550px;
+    border-radius: 5px;
+}
+#hotButton{
+    margin:0 auto;
+    display:block;
+    padding-left: 3em;
+    padding-right: 3em;
+    margin-bottom: 1em;
+}
+#notButton{
+    margin:0 auto;
+    display:block;
+    padding-left: 3em;
+    padding-right: 3em;
+    margin-bottom: 1em;
+}
+#submit-button{
+    margin:0 auto;
+    display:block;
+    padding-left: 3em;
+    padding-right: 3em;
+    margin-bottom: 1em;
+    cursor: pointer;
+}
+}
