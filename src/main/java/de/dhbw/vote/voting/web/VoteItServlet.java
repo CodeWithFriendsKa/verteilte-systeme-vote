@@ -55,19 +55,40 @@ public class VoteItServlet extends HttpServlet {
                 logger.debug(pathInfo.split("/")[1]);
                 id = Long.parseLong(pathInfo.split("/")[1]);
                 logger.debug(Long.toString(id));
+                vote = upDownVoteBean.findById(id);
+                logger.debug(vote.toString());
             }
-            vote = upDownVoteBean.findById(id);
-            logger.debug(vote.toString());
+            
             
             request.setAttribute("vote", vote);
 
             //Variable of already voted
-            
-            
-            
+           
             List<Voter> upV = vote.getUpVotes();
             List<Voter> downV = vote.getDownVotes();
-            boolean alreadyVoted = ((upV.contains(currentVoter)) || (downV.contains(currentVoter)));
+            boolean alreadyVoted = false;
+            logger.debug(upV.toString());
+            logger.debug(downV.toString());
+            logger.debug(upV.size() + "");
+            for(int upI = 0; upI < upV.size(); upI++){
+                logger.debug(upV.get(upI).getUsername());
+                logger.debug(currentVoter.getUsername());
+                if((upV.get(upI).getUsername()) == null ? (currentVoter.getUsername()) == null : (upV.get(upI).getUsername()).equals(currentVoter.getUsername())){
+                    alreadyVoted = true;
+                    logger.debug("Inside UP true");
+                    logger.debug(alreadyVoted + "");
+                }
+            }
+            for(int downI = 0; downI < downV.size(); downI++){
+                logger.debug(upV.get(downI).getUsername());
+                logger.debug(currentVoter.getUsername());
+                if(downV.get(downI).getUsername() == null ? (currentVoter.getUsername()) == null : downV.get(downI).getUsername().equals(currentVoter.getUsername())){
+                    alreadyVoted = true;
+                    logger.debug("Inside DONW true");
+                    logger.debug(alreadyVoted + "");
+                }
+            }
+            //alreadyVoted = ((upV.contains(currentVoter)) || (downV.contains(currentVoter)));
             logger.debug(Boolean.toString(alreadyVoted));
             request.setAttribute("alreadyVoted", alreadyVoted);
             logger.debug(Boolean.toString(alreadyVoted));
@@ -78,4 +99,45 @@ public class VoteItServlet extends HttpServlet {
 
         }
     }
+    
+    /***
+     * 
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException 
+     */
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        request.setCharacterEncoding("utf-8");
+        
+        //find current User
+        Voter currentVoter = voterBean.getCurrentUser();
+
+        long id = -1;
+        String pathInfo = request.getPathInfo();
+
+        UpDownVote vote = new UpDownVote();
+        if (pathInfo != null) {
+            id = Long.parseLong(pathInfo.split("/")[1]);
+            vote = upDownVoteBean.findById(id);
+        }
+        
+        //Set UP vote
+        if(request.getParameter("hot") != null){
+            vote.getUpVotes().add(currentVoter);
+            upDownVoteBean.update(vote);
+        }
+        
+        //Set Down vote
+        if(request.getParameter("not") != null){
+            vote.getDownVotes().add(currentVoter);
+            upDownVoteBean.update(vote);
+        }
+
+        response.sendRedirect("/vote/app/dashboard/");
+    }
+    
 }

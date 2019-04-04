@@ -93,7 +93,7 @@ public class UpDownVote implements Serializable {
         this.image = null;
         this.date = DateExtensions.now();
         this.category = Category.UNBEKANNT;
-    }    
+    }
     
     /***
      * 

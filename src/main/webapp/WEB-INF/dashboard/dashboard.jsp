@@ -297,21 +297,22 @@
                                         <div class="rounded p-3" style="border: 1px solid grey;">
                                             <h4>${vote.getDescription()}</h4>
                                             <p>von: ${vote.getCreator().getUsername()}</p>
-
-                                            <div class="row">
-                                                <div class="md-3 ml-1" style="color:red;">
-                                                    Up Votes
-                                                    <i class="fab fa-hotjar ml-1"></i>
-                                                </div>
-                                                <div class="md-3 ml-1" style="color:red;">
-                                                    ${vote.getUpSize()}
-                                                </div>
-                                                <div class="md-3 ml-5" style="color:blue;">
-                                                    Down Votes
-                                                    <i class="fas fa-snowflake ml-1"></i>
-                                                </div>
-                                                <div class="md-3 ml-1" style="color:blue;">
-                                                    ${vote.getDownSize()}
+                                            <div test="${alreadyVoted[vote.getId()]}">
+                                                <div class="row">
+                                                    <div class="md-3 ml-1" style="color:red;">
+                                                        Up Votes
+                                                        <i class="fab fa-hotjar ml-1"></i>
+                                                    </div>
+                                                    <div class="md-3 ml-1" style="color:red;">
+                                                        ${vote.getUpSize()}
+                                                    </div>
+                                                    <div class="md-3 ml-5" style="color:blue;">
+                                                        Down Votes
+                                                        <i class="fas fa-snowflake ml-1"></i>
+                                                    </div>
+                                                    <div class="md-3 ml-1" style="color:blue;">
+                                                        ${vote.getDownSize()}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

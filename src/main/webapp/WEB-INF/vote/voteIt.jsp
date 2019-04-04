@@ -36,32 +36,26 @@
                         <img id="picture" src="https://biowikis.com/wp-content/uploads/2018/07/Tina-Halada-Bio-Wiki-Net-Worth.jpg">
                         <p class="rounded p-4">${vote.getDescription()}</p>
                     </div>
-                    <c:if test="alreadyVoted == false">
+                    <c:if test="${alreadyVoted == false}">
                         <div class="text-center">
                             <div class="btn-group">
-                                <button id="notButton" type="submit" class="btn btn-primary btn-lg">NOT</button>
-                                <button id="hotButton" type="submit" class="btn btn-danger btn-lg">HOT</button>
+                                <button id="notButton" name="not" value="not" type="submit" class="btn btn-primary btn-lg">NOT</button>
+                                <button id="hotButton" name="hot" value="hot" type="submit" class="btn btn-danger btn-lg">HOT</button>
                             </div>
                         </div>
                     </c:if>
-                    <c:if test="alreadyVoted == true">
+                    <c:if test="${alreadyVoted == true}">
                         <div class="text-center">
-                            <div class="row">
-                                <div class="md-3 ml-1" style="color:red;">
-                                    Up Votes
-                                    <i class="fab fa-hotjar ml-1"></i>
-                                </div>
-                                <div class="md-3 ml-1" style="color:red;">
-                                    ${vote.getUpSize()}
-                                </div>
-                                <div class="md-3 ml-5" style="color:blue;">
-                                    Down Votes
-                                    <i class="fas fa-snowflake ml-1"></i>
-                                </div>
-                                <div class="md-3 ml-1" style="color:blue;">
-                                    ${vote.getDownSize()}
-                                </div>
-                            </div>
+                            <span style="color:red;">
+                                Up Votes
+                                <i class="fab fa-hotjar ml-1"></i>
+                                ${vote.getUpSize()}
+                            </span>
+                            <span class="ml-5" style="color:blue;">
+                                Down Votes
+                                <i class="fas fa-snowflake ml-1"></i>
+                                ${vote.getDownSize()}
+                            </span>
                         </div>
                     </c:if>
                 </div>    
