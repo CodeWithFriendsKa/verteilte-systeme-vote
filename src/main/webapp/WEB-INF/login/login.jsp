@@ -29,7 +29,7 @@
         <div class="row">
             <div class="col-md-6 login rounded mt-5 p-3">
                 <div class="continer">
-                    
+
                     <form method="post" class="stacked">
                         <div class="column">
                             <%-- CSRF-Token --%>
@@ -54,7 +54,8 @@
 
                             <%-- Button zum Abschicken --%>
                             <div class="side-by-side">
-                                <button class="icon-pencil" type="submit">
+                                <br>
+                                <button class="btn btn-success" type="submit">
                                     Einloggen
                                 </button>
                             </div>

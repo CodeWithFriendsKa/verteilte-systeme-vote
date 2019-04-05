@@ -27,94 +27,99 @@
     </jsp:attribute>
 
     <jsp:attribute name="content">
-        <div class="container">
-            <form method="post" class="stacked">
-                <div class="column">
-                    <%-- CSRF-Token --%>
-                    <input type="hidden" name="csrf_token" value="${csrf_token}">
+        <div class="row">
+            <div class="col-md-6 login rounded mt-5 p-3">
+                <div class="container p-0">
+                    <form method="post" class="stacked">
+                        <div class="column">
+                            <%-- CSRF-Token --%>
+                            <input type="hidden" name="csrf_token" value="${csrf_token}">
 
-                    <%-- Eingabefelder --%>
-                    <label for="signup_username">
-                        Benutzername:
-                        <span class="required">*</span>
-                    </label>
-                    <div class="side-by-side">
-                        <input type="text" name="signup_username" value="${signup_form.values["signup_username"][0]}">
-                    </div>
+                            <%-- Eingabefelder --%>
+                            <label for="signup_username">
+                                Benutzername:
+                                <span class="required">*</span>
+                            </label>
+                            <div class="side-by-side">
+                                <input type="text" name="signup_username" value="${signup_form.values["signup_username"][0]}">
+                            </div>
 
-                    <label for="signup_password1">
-                        Passwort:
-                        <span class="required">*</span>
-                    </label>
-                    <div class="side-by-side">
-                        <input type="password" name="signup_password1" value="${signup_form.values["signup_password1"][0]}">
-                    </div>
+                            <label for="signup_password1">
+                                Passwort:
+                                <span class="required">*</span>
+                            </label>
+                            <div class="side-by-side">
+                                <input type="password" name="signup_password1" value="${signup_form.values["signup_password1"][0]}">
+                            </div>
 
-                    <label for="signup_password2">
-                        Passwort (wdh.):
-                        <span class="required">*</span>
-                    </label>
-                    <div class="side-by-side">
-                        <input type="password" name="signup_password2" value="${signup_form.values["signup_password2"][0]}">
-                    </div>
-                    
-                    <label for="signup_prename">
-                        Vorname:
-                        <span class="required">*</span>
-                    </label>
-                    <div class="side-by-side">
-                        <input type="text" name="signup_prename" value="${signup_form.values["signup_prename"][0]}">
-                    </div>   
-                    
-                    <label for="signup_name">
-                        Nachname:
-                        <span class="required">*</span>
-                    </label>
-                    <div class="side-by-side">
-                        <input type="text" name="signup_name" value="${signup_form.values["signup_name"][0]}">
-                    </div>            
-                    
-                    <label for="signup_age">
-                        Dein Alter:
-                        <span class="required">*</span>
-                    </label>
-                    <div class="side-by-side">
-                        <input type="text" name="signup_age" value="${signup_form.values["signup_age"][0]}">
-                    </div>                    
-                    
-                    <label for="signup_mail">
-                        Mail:
-                        <span class="required">*</span>
-                    </label>
-                    <div class="side-by-side">
-                        <input type="text" name="signup_mail" value="${signup_form.values["signup_mail"][0]}">
-                    </div>           
-                    
-                    <label for="signup_sex">
-                        Geschlecht:
-                        <span class="required">*</span>
-                    </label>
-                    <div class="side-by-side">
-                        <input type="text" name="signup_sex" value="${signup_form.values["signup_sex"][0]}">
-                    </div>                      
+                            <label for="signup_password2">
+                                Passwort (wdh.):
+                                <span class="required">*</span>
+                            </label>
+                            <div class="side-by-side">
+                                <input type="password" name="signup_password2" value="${signup_form.values["signup_password2"][0]}">
+                            </div>
 
-                    <%-- Button zum Abschicken --%>
-                    <div class="side-by-side">
-                        <button class="icon-pencil" type="submit">
-                            Registrieren
-                        </button>
-                    </div>
-                </div>
+                            <label for="signup_prename">
+                                Vorname:
+                                <span class="required">*</span>
+                            </label>
+                            <div class="side-by-side">
+                                <input type="text" name="signup_prename" value="${signup_form.values["signup_prename"][0]}">
+                            </div>   
 
-                <%-- Fehlermeldungen --%>
-                <c:if test="${!empty signup_form.errors}">
-                    <ul class="errors">
-                        <c:forEach items="${signup_form.errors}" var="error">
-                            <li>${error}</li>
-                            </c:forEach>
-                    </ul>
-                </c:if>
-            </form>
-        </div>
+                            <label for="signup_name">
+                                Nachname:
+                                <span class="required">*</span>
+                            </label>
+                            <div class="side-by-side">
+                                <input type="text" name="signup_name" value="${signup_form.values["signup_name"][0]}">
+                            </div>            
+
+                            <label for="signup_age">
+                                Dein Alter:
+                                <span class="required">*</span>
+                            </label>
+                            <div class="side-by-side">
+                                <input type="text" name="signup_age" value="${signup_form.values["signup_age"][0]}">
+                            </div>                    
+
+                            <label for="signup_mail">
+                                Mail:
+                                <span class="required">*</span>
+                            </label>
+                            <div class="side-by-side">
+                                <input type="text" name="signup_mail" value="${signup_form.values["signup_mail"][0]}">
+                            </div>           
+
+                            <label for="signup_sex">
+                                Geschlecht:
+                                <span class="required">*</span>
+                            </label>
+                            <div class="side-by-side">
+                                <input type="text" name="signup_sex" value="${signup_form.values["signup_sex"][0]}">
+                            </div>                      
+
+                            <%-- Button zum Abschicken --%>
+                            <div class="side-by-side">
+                                <br>
+                                <button class="btn btn-success" type="submit">
+                                    Registrieren
+                                </button>
+                            </div>
+                        </div>
+
+                        <%-- Fehlermeldungen --%>
+                        <c:if test="${!empty signup_form.errors}">
+                            <ul class="errors">
+                                <c:forEach items="${signup_form.errors}" var="error">
+                                    <li>${error}</li>
+                                    </c:forEach>
+                            </ul>
+                        </c:if>
+                    </form>
+                </div
+            </div>        
+        </div>        
     </jsp:attribute>
 </template:base>
