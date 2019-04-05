@@ -137,16 +137,18 @@ public class VoteItServlet extends HttpServlet {
         if(request.getParameter("hot") != null){
             logger.debug(vote.toString());
             vote.getUpVotes().add(currentVoter);
+            upDownVoteBean.update(vote);
             logger.debug(vote.toString());
-            logger.debug(upDownVoteBean.update(vote).toString());
+           // logger.debug(upDownVoteBean.update(vote).toString());
         }
         
         //Set Down vote
         if(request.getParameter("not") != null){
             logger.debug(vote.toString());
             vote.getDownVotes().add(currentVoter);
+            upDownVoteBean.update(vote);
             logger.debug(vote.toString());
-            logger.debug(upDownVoteBean.update(vote).toString());
+           // logger.debug(upDownVoteBean.update(vote).toString());
         }
 
         response.sendRedirect("/vote/app/dashboard/");

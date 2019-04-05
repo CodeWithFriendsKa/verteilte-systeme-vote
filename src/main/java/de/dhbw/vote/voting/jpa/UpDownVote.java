@@ -8,12 +8,14 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -41,11 +43,11 @@ public class UpDownVote implements Serializable {
     //@Size(min = 3, max = 64, message = "Der Benutzername muss zwischen fünf und 64 Zeichen lang sein.")
     @NotNull(message = "Der Benutzername darf nicht leer sein.")
     private Voter creator;
-    @OneToMany(fetch = FetchType.EAGER, targetEntity = Voter.class)
+    @ManyToMany(fetch = FetchType.EAGER, targetEntity = Voter.class)
     private List<Voter> upVotes;
     @Column(name = "UPSIZE")
     private Integer upSize;
-    @OneToMany(fetch = FetchType.EAGER, targetEntity = Voter.class)
+    @ManyToMany(fetch = FetchType.EAGER, targetEntity = Voter.class)
     private List<Voter> downVotes;
     @Column(name = "DOWNSIZE")
     private Integer downSize;
