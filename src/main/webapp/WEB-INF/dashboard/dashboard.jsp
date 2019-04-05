@@ -16,49 +16,49 @@
 <!-- Google Graphics Dounat Chart -->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
-    google.charts.load("current", {packages:["corechart"]});
+    google.charts.load("current", {packages: ["corechart"]});
     google.charts.setOnLoadCallback(drawChart);
     function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-    ['Typ', 'Votes'],
-    ['Up Votes',     ${myUpVotes}],
-    ['Down Votes', ${myDownVotes}]
-    ]);
+        var data = google.visualization.arrayToDataTable([
+            ['Typ', 'Votes'],
+            ['Up Votes', ${myUpVotes}],
+            ['Down Votes', ${myDownVotes}]
+        ]);
 
-    var options = {
-    colors: ['red', 'blue'],
-    pieHole: 0.3,
-    backgroundColor: { fill:'transparent' },
-    };
+        var options = {
+            colors: ['red', 'blue'],
+            pieHole: 0.3,
+            backgroundColor: {fill: 'transparent'},
+        };
 
-    var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-    chart.draw(data, options);
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
     }
 
     function buttonChanger(el) {
-    var i;
-    for(i = 0; i < 4; i++) {
-    document.getElementById('button' + i).disabled = false;
-    }
-    document.getElementById(el.id).disabled = true;
+        var i;
+        for (i = 0; i < 4; i++) {
+            document.getElementById('button' + i).disabled = false;
+        }
+        document.getElementById(el.id).disabled = true;
 
-    var j;
-    for(j=0; j < 4 ; j++) {
-    document.getElementById('result' + j).hidden = true;
-    }
-    var text = 'result' + el.id.charAt(el.id.length-1);
-    document.getElementById(text).hidden = false;
+        var j;
+        for (j = 0; j < 4; j++) {
+            document.getElementById('result' + j).hidden = true;
+        }
+        var text = 'result' + el.id.charAt(el.id.length - 1);
+        document.getElementById(text).hidden = false;
     }
 
     function bChanger(ele) {
-    document.getElementById('b0').disabled = false;
-    document.getElementById('b1').disabled = false;
-    document.getElementById('r0').hidden = true;
-    document.getElementById('r1').hidden = true;
-    if(ele.id.charAt(ele.id.length-1) < 2){
-    document.getElementById(ele.id).disabled = true;
-    document.getElementById('r' + ele.id.charAt(ele.id.length-1)).hidden = false;
-    }
+        document.getElementById('b0').disabled = false;
+        document.getElementById('b1').disabled = false;
+        document.getElementById('r0').hidden = true;
+        document.getElementById('r1').hidden = true;
+        if (ele.id.charAt(ele.id.length - 1) < 2) {
+            document.getElementById(ele.id).disabled = true;
+            document.getElementById('r' + ele.id.charAt(ele.id.length - 1)).hidden = false;
+        }
     }
 
 </script>
@@ -108,35 +108,39 @@
                         <div class="row">
                             <div class="col-md-5 m-2">
                                 <p class="text-danger">Gewinner gesamt:</p>
-                                <div class="rounded p-3" style="border: 1px solid grey;">
-                                    <p>${BestAllTimes.getDescription()}</p>
-                                    <p>von: ${BestAllTimes.getCreator().getUsername()}</p>
-                                    <div class="row">
-                                        <div class="md-6 ml-1" style="color:red;">
-                                            Up Votes
-                                            <i class="fab fa-hotjar ml-1"></i>
-                                        </div>
-                                        <div class="md-6 ml-1" style="color:red;">
-                                            ${BestAllTimes.getUpVotes().size()}
+                                <a href="<c:url value="/app/voteit/${BestAllTimes.getId()}"/>">
+                                    <div class="rounded p-3" style="border: 1px solid grey; background-color: rgb(255, 246, 242);">
+                                        <p>${BestAllTimes.getDescription()}</p>
+                                        <p>von: ${BestAllTimes.getCreator().getUsername()}</p>
+                                        <div class="row">
+                                            <div class="md-6 ml-1" style="color:red;">
+                                                Up Votes
+                                                <i class="fab fa-hotjar ml-1"></i>
+                                            </div>
+                                            <div class="md-6 ml-1" style="color:red;">
+                                                ${BestAllTimes.getUpVotes().size()}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                             <div class="col-md-5 m-2">
                                 <p class="text-primary">Verlierer gesamt:</p>
-                                <div class="rounded p-3" style="border: 1px solid grey;">
-                                    <p>${WorstAllTimes.getDescription()}</p>
-                                    <p>von: ${WorstAllTimes.getCreator().getUsername()}</p>
-                                    <div class="row">
-                                        <div class="md-6 ml-1" style="color:blue;">
-                                            Down Votes
-                                            <i class="fas fa-snowflake ml-1"></i>
-                                        </div>
-                                        <div class="md-6 ml-1" style="color:blue;">
-                                            ${WorstAllTimes.getDownVotes().size()}
+                                <a href="<c:url value="/app/voteit/${WorstAllTimes.getId()}"/>">
+                                    <div class="rounded p-3" style="border: 1px solid grey; background-color: rgb(255, 246, 242);">
+                                        <p>${WorstAllTimes.getDescription()}</p>
+                                        <p>von: ${WorstAllTimes.getCreator().getUsername()}</p>
+                                        <div class="row">
+                                            <div class="md-6 ml-1" style="color:blue;">
+                                                Down Votes
+                                                <i class="fas fa-snowflake ml-1"></i>
+                                            </div>
+                                            <div class="md-6 ml-1" style="color:blue;">
+                                                ${WorstAllTimes.getDownVotes().size()}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -144,35 +148,39 @@
                         <div class="row">
                             <div class="col-md-5 m-2">
                                 <p class="text-danger">Monatsgewinner:</p>
-                                <div class="rounded p-3" style="border: 1px solid grey;">
-                                    <p>${BestMonth.getDescription()}</p>
-                                    <p>von: ${BestMonth.getCreator().getUsername()}</p>
-                                    <div class="row">
-                                        <div class="md-6 ml-1" style="color:red;">
-                                            Up Votes
-                                            <i class="fab fa-hotjar ml-1"></i>
-                                        </div>
-                                        <div class="md-6 ml-1" style="color:red;">
-                                            ${BestMonth.getUpVotes().size()}
+                                <a href="<c:url value="/app/voteit/${BestMonth.getId()}"/>">
+                                    <div class="rounded p-3" style="border: 1px solid grey; background-color: rgb(255, 246, 242);">
+                                        <p>${BestMonth.getDescription()}</p>
+                                        <p>von: ${BestMonth.getCreator().getUsername()}</p>
+                                        <div class="row">
+                                            <div class="md-6 ml-1" style="color:red;">
+                                                Up Votes
+                                                <i class="fab fa-hotjar ml-1"></i>
+                                            </div>
+                                            <div class="md-6 ml-1" style="color:red;">
+                                                ${BestMonth.getUpVotes().size()}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                             <div class="col-md-5 m-2">
                                 <p class="text-primary">Monatsverlierer:</p>
-                                <div class="rounded p-3" style="border: 1px solid grey;">
-                                    <p>${WorstMonth.getDescription()}</p>
-                                    <p>von: ${WorstMonth.getCreator().getUsername()}</p>
-                                    <div class="row">
-                                        <div class="md-6 ml-1" style="color:blue;">
-                                            Down Votes
-                                            <i class="fas fa-snowflake ml-1"></i>
-                                        </div>
-                                        <div class="md-6 ml-1" style="color:blue;">
-                                            ${WorstMonth.getDownVotes().size()}
+                                <a href="<c:url value="/app/voteit/${WorstMonth.getId()}"/>">
+                                    <div class="rounded p-3" style="border: 1px solid grey; background-color: rgb(255, 246, 242);">
+                                        <p>${WorstMonth.getDescription()}</p>
+                                        <p>von: ${WorstMonth.getCreator().getUsername()}</p>
+                                        <div class="row">
+                                            <div class="md-6 ml-1" style="color:blue;">
+                                                Down Votes
+                                                <i class="fas fa-snowflake ml-1"></i>
+                                            </div>
+                                            <div class="md-6 ml-1" style="color:blue;">
+                                                ${WorstMonth.getDownVotes().size()}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -180,35 +188,39 @@
                         <div class="row">
                             <div class="col-md-5 m-2">
                                 <p class="text-danger">Wochengewinner:</p>
-                                <div class="rounded p-3" style="border: 1px solid grey;">
-                                    <p>${BestWeek.getDescription()}</p>
-                                    <p>von: ${BestWeek.getCreator().getUsername()}</p>
-                                    <div class="row">
-                                        <div class="md-6 ml-1" style="color:red;">
-                                            Up Votes
-                                            <i class="fab fa-hotjar ml-1"></i>
-                                        </div>
-                                        <div class="md-6 ml-1" style="color:red;">
-                                            ${BestWeek.getUpVotes().size()}
+                                <a href="<c:url value="/app/voteit/${BestWeek.getId()}"/>">
+                                    <div class="rounded p-3" style="border: 1px solid grey; background-color: rgb(255, 246, 242);">
+                                        <p>${BestWeek.getDescription()}</p>
+                                        <p>von: ${BestWeek.getCreator().getUsername()}</p>
+                                        <div class="row">
+                                            <div class="md-6 ml-1" style="color:red;">
+                                                Up Votes
+                                                <i class="fab fa-hotjar ml-1"></i>
+                                            </div>
+                                            <div class="md-6 ml-1" style="color:red;">
+                                                ${BestWeek.getUpVotes().size()}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                             <div class="col-md-5 m-2">
                                 <p class="text-primary">Wochenverlierer:</p>
-                                <div class="rounded p-3" style="border: 1px solid grey;">
-                                    <p>${WorstWeek.getDescription()}</p>
-                                    <p>von: ${WorstWeek.getCreator().getUsername()}</p>
-                                    <div class="row">
-                                        <div class="md-6 ml-1" style="color:blue;">
-                                            Down Votes
-                                            <i class="fas fa-snowflake ml-1"></i>
-                                        </div>
-                                        <div class="md-6 ml-1" style="color:blue;">
-                                            ${WorstWeek.getDownVotes().size()}
+                                <a href="<c:url value="/app/voteit/${WorstWeek.getId()}"/>">
+                                    <div class="rounded p-3" style="border: 1px solid grey; background-color: rgb(255, 246, 242);">
+                                        <p>${WorstWeek.getDescription()}</p>
+                                        <p>von: ${WorstWeek.getCreator().getUsername()}</p>
+                                        <div class="row">
+                                            <div class="md-6 ml-1" style="color:blue;">
+                                                Down Votes
+                                                <i class="fas fa-snowflake ml-1"></i>
+                                            </div>
+                                            <div class="md-6 ml-1" style="color:blue;">
+                                                ${WorstWeek.getDownVotes().size()}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -216,35 +228,39 @@
                         <div class="row">
                             <div class="col-md-5 m-2">
                                 <p class="text-danger">Tagesgewinner:</p>
-                                <div class="rounded p-3" style="border: 1px solid grey;">
-                                    <p>${BestDay.getDescription()}</p>
-                                    <p>von: ${BestDay.getCreator().getUsername()}</p>
-                                    <div class="row">
-                                        <div class="md-6 ml-1" style="color:red;">
-                                            Up Votes
-                                            <i class="fab fa-hotjar ml-1"></i>
-                                        </div>
-                                        <div class="md-6 ml-1" style="color:red;">
-                                            ${BestDay.getUpVotes().size()}
+                                <a href="<c:url value="/app/voteit/${BestDay.getId()}"/>">
+                                    <div class="rounded p-3" style="border: 1px solid grey; background-color: rgb(255, 246, 242);">
+                                        <p>${BestDay.getDescription()}</p>
+                                        <p>von: ${BestDay.getCreator().getUsername()}</p>
+                                        <div class="row">
+                                            <div class="md-6 ml-1" style="color:red;">
+                                                Up Votes
+                                                <i class="fab fa-hotjar ml-1"></i>
+                                            </div>
+                                            <div class="md-6 ml-1" style="color:red;">
+                                                ${BestDay.getUpVotes().size()}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                             <div class="col-md-5 m-2">
                                 <p class="text-primary">Tagesverlierer:</p>
-                                <div class="rounded p-3" style="border: 1px solid grey;">
-                                    <p>${WorstDay.getDescription()}</p>
-                                    <p>von: ${WorstDay.getCreator().getUsername()}</p>
-                                    <div class="row">
-                                        <div class="md-6 ml-1" style="color:blue;">
-                                            Down Votes
-                                            <i class="fas fa-snowflake ml-1"></i>
-                                        </div>
-                                        <div class="md-6 ml-1" style="color:blue;">
-                                            ${WorstDay.getDownVotes().size()}
+                                <a href="<c:url value="/app/voteit/${WorstDay.getId()}"/>">
+                                    <div class="rounded p-3" style="border: 1px solid grey; background-color: rgb(255, 246, 242);">
+                                        <p>${WorstDay.getDescription()}</p>
+                                        <p>von: ${WorstDay.getCreator().getUsername()}</p>
+                                        <div class="row">
+                                            <div class="md-6 ml-1" style="color:blue;">
+                                                Down Votes
+                                                <i class="fas fa-snowflake ml-1"></i>
+                                            </div>
+                                            <div class="md-6 ml-1" style="color:blue;">
+                                                ${WorstDay.getDownVotes().size()}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -264,7 +280,7 @@
                             <c:forEach items="${myVotes}" var="vote">
                                 <div class="col-md-4 p-3">
                                     <a href="<c:url value="/app/voteit/${vote.getId()}"/>">
-                                        <div class="rounded p-3" style="border: 1px solid grey;">
+                                        <div class="rounded p-3" style="border: 1px solid grey; background-color: rgb(255, 246, 242);">
                                             <h4>${vote.getDescription()}</h4>
                                             <p>von: ${vote.getCreator().getUsername()}</p>
                                             <div class="row">
@@ -294,13 +310,13 @@
                             <c:forEach items="${allVotes}" var="vote">
                                 <div class="col-md-4 p-3">
                                     <a href="<c:url value="/app/voteit/${vote.getId()}"/>">
-                                        <div class="rounded p-3" style="border: 1px solid grey;">
+                                        <div class="rounded p-3" style="border: 1px solid grey; background-color: rgb(255, 246, 242);">
                                             <h4>${vote.getDescription()}</h4>
                                             <p>von: ${vote.getCreator().getUsername()}</p>
                                             <c:if test="${!vote.userHasAlreadyVoted(currentVoter)}">
-                                                    <div style="color:green;">
-                                                        <p>Stimme jetzt ab!</p>
-                                                    </div>
+                                                <span style="color:green;">
+                                                    <p style="margin:0;">Stimme jetzt ab!</p>
+                                                </span>
                                             </c:if>
                                             <c:if test="${vote.userHasAlreadyVoted(currentVoter)}">
                                                 <div class="row">

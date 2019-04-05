@@ -16,7 +16,7 @@
 
 <template:base>
     <jsp:attribute name="title">
-        mein Profil
+        Mein Profil
     </jsp:attribute>
 
     <jsp:attribute name="head">

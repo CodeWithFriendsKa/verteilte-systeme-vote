@@ -34,7 +34,7 @@
             <%-- Menü --%>
             <nav id="menubar" class="navbar sticky-top navbar-dark" style="background-color: white;">
 
-                <a href="<c:url value="/dashboard/"/>" style="color:black!important;" class="navbar-brand p-0 d-flex">
+                <a " style="color:black!important;" class="navbar-brand p-0 d-flex">
                     <i class="fas fa-fire fa-2x mr-2"></i>
                     <h3>Hot or Not</h3>
                 </a>
