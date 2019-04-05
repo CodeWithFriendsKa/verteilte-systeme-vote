@@ -40,7 +40,7 @@ public class VoteItServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-
+        
         try {
             long id = -1;
             String pathInfo = request.getPathInfo();
@@ -52,8 +52,16 @@ public class VoteItServlet extends HttpServlet {
             if (pathInfo != null) {
                 logger.debug("TEST123");
                 logger.debug(pathInfo);
-                logger.debug(pathInfo.split("/")[1]);
-                id = Long.parseLong(pathInfo.split("/")[1]);
+                if(pathInfo.split("/").length > 1){
+                    id = Long.parseLong(pathInfo.split("/")[1]);
+                    logger.debug("" + pathInfo.split("/")[1]);
+                }else{
+                    //find votings and redirct to any number
+                    List<UpDownVote> v = upDownVoteBean.findAll();
+                    Long firstId = v.get(1).getId();
+                    id = firstId;
+                }
+                
                 logger.debug(Long.toString(id));
                 vote = upDownVoteBean.findById(id);
                 logger.debug(vote.toString());
@@ -96,7 +104,7 @@ public class VoteItServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/vote/voteIt.jsp");
             dispatcher.forward(request, response);
         } catch (Exception e) {
-
+            response.sendRedirect("/vote/app/dashboard/");
         }
     }
     
@@ -127,14 +135,18 @@ public class VoteItServlet extends HttpServlet {
         
         //Set UP vote
         if(request.getParameter("hot") != null){
+            logger.debug(vote.toString());
             vote.getUpVotes().add(currentVoter);
-            upDownVoteBean.update(vote);
+            logger.debug(vote.toString());
+            logger.debug(upDownVoteBean.update(vote).toString());
         }
         
         //Set Down vote
         if(request.getParameter("not") != null){
+            logger.debug(vote.toString());
             vote.getDownVotes().add(currentVoter);
-            upDownVoteBean.update(vote);
+            logger.debug(vote.toString());
+            logger.debug(upDownVoteBean.update(vote).toString());
         }
 
         response.sendRedirect("/vote/app/dashboard/");

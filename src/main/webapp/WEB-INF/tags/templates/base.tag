@@ -52,7 +52,7 @@
                         <a href="<c:url value="/createvote/"/>" class="icon-logout">Create Vote</a>
                     </div>
                     <div class="menuitem">
-                        <a href="<c:url value="/app/voteit/"/>" class="icon-logout">Vote It</a>
+                        <a href="<c:url value="/app/voteserv/"/>" class="icon-logout">Vote It</a>
                     </div>
                     <div class="menuitem">
                         <a href="<c:url value="/logout/"/>" class="icon-logout">Logout ${pageContext.request.userPrincipal.name}</a>

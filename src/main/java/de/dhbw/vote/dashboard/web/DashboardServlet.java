@@ -55,8 +55,8 @@ public class DashboardServlet extends HttpServlet {
             int myUpVotes = 0;
             int myDownVotes = 0;
             for (int i = 0; i < votes.size(); i++) {
-                myUpVotes += votes.get(i).getUpSize();
-                myDownVotes += votes.get(i).getDownSize();
+                myUpVotes += votes.get(i).getUpVotes().size();
+                myDownVotes += votes.get(i).getDownVotes().size();
             }
 
             
@@ -64,22 +64,7 @@ public class DashboardServlet extends HttpServlet {
             List<UpDownVote> allVotes = upDownVoteBean.findAll();
             allVotes.forEach(v -> logger.debug(v.toString() + "TEST999"));
             
-            //find if already voted for all votes
-            boolean[] alreadyVoted = new boolean[allVotes.size()];
-            for(int i = 0; i < allVotes.size(); i++){
-                for(int j = 0; j < allVotes.get(i).getUpVotes().size(); j++){
-                    if(allVotes.get(i).getUpVotes().get(j).getUsername() == null ? voter.getUsername() == null : allVotes.get(i).getUpVotes().get(j).getUsername().equals(voter.getUsername())){
-                        alreadyVoted[i] = true;
-                    }
-                }
-                for(int k = 0; k < allVotes.get(i).getDownVotes().size(); k++){
-                    if(allVotes.get(i).getDownVotes().get(k).getUsername() == null ? voter.getUsername() == null : allVotes.get(i).getDownVotes().get(k).getUsername().equals(voter.getUsername())){
-                        alreadyVoted[i] = true;
-                    }
-                }
-                
-            }
-            request.setAttribute("alreadyVoted" , alreadyVoted);
+
             
             request.setAttribute("allVotes", allVotes);
             request.setAttribute("myUpVotes", myUpVotes);

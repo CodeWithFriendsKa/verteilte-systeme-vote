@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 /***
@@ -139,9 +140,9 @@ public class UpDownVote implements Serializable {
     public Voter getCreator() {return creator;}
     public void setCreator(Voter creator) {this.creator = creator;}
     public List<Voter> getUpVotes() {return upVotes;}
-    public void setUpVotes(List<Voter> upVotes) {this.upVotes = upVotes; this.upSize = this.upVotes.size();}
+    public void setUpVotes(List<Voter> upVotes) {this.upVotes = upVotes; this.upSize = upVotes.size();}
     public List<Voter> getDownVotes() {return downVotes;}
-    public void setDownVotes(List<Voter> downVotes) {this.downVotes = downVotes; this.downSize = this.downVotes.size();}
+    public void setDownVotes(List<Voter> downVotes) {this.downVotes = downVotes; this.downSize = downVotes.size();}
     public Image getImage() {return image;}
     public void setImage(Image image) {this.image = image;}
     public Date getDate() {return date;}
@@ -152,6 +153,26 @@ public class UpDownVote implements Serializable {
     public void setUpSize(Integer upSize) {this.upSize = upSize;}
     public Integer getDownSize() {return downSize;}
     public void setDownSize(Integer downSize) {this.downSize = downSize;}
+
+    public boolean userHasAlreadyVoted(Voter voter) {
+        boolean hasVoted = false;
+        
+        for(int i= 0; i < this.upVotes.size(); i++){
+            System.out.println(this.upVotes.get(i).getUsername().toString());
+            System.out.println(voter.getUsername().toString());
+            System.out.println("" + this.upVotes.get(i).getUsername().toString().equals(voter.getUsername().toString()));
+            if(this.upVotes.get(i).getUsername().toString().equals(voter.getUsername().toString())){
+                hasVoted = true;
+            }
+        }
+        for(int j = 0; j < this.downVotes.size(); j++){
+            if(this.downVotes.get(j).getUsername().toString().equals(voter.getUsername().toString())){
+                hasVoted = true;
+            }
+        }
+        
+        return hasVoted;
+    }
 
     // <editor-fold defaultstate="collapsed" desc=" ${DESCRIPTION} ">
     /***

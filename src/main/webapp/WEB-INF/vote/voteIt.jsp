@@ -49,12 +49,12 @@
                             <span style="color:red;">
                                 Up Votes
                                 <i class="fab fa-hotjar ml-1"></i>
-                                ${vote.getUpSize()}
+                                ${vote.getUpVotes().size()}
                             </span>
                             <span class="ml-5" style="color:blue;">
                                 Down Votes
                                 <i class="fas fa-snowflake ml-1"></i>
-                                ${vote.getDownSize()}
+                                ${vote.getDownVotes().size()}
                             </span>
                         </div>
                     </c:if>

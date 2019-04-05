@@ -117,7 +117,7 @@
                                             <i class="fab fa-hotjar ml-1"></i>
                                         </div>
                                         <div class="md-6 ml-1" style="color:red;">
-                                            ${BestAllTimes.getUpSize()}
+                                            ${BestAllTimes.getUpVotes().size()}
                                         </div>
                                     </div>
                                 </div>
@@ -133,7 +133,7 @@
                                             <i class="fas fa-snowflake ml-1"></i>
                                         </div>
                                         <div class="md-6 ml-1" style="color:blue;">
-                                            ${WorstAllTimes.getDownSize()}
+                                            ${WorstAllTimes.getDownVotes().size()}
                                         </div>
                                     </div>
                                 </div>
@@ -153,7 +153,7 @@
                                             <i class="fab fa-hotjar ml-1"></i>
                                         </div>
                                         <div class="md-6 ml-1" style="color:red;">
-                                            ${BestMonth.getUpSize()}
+                                            ${BestMonth.getUpVotes().size()}
                                         </div>
                                     </div>
                                 </div>
@@ -169,7 +169,7 @@
                                             <i class="fas fa-snowflake ml-1"></i>
                                         </div>
                                         <div class="md-6 ml-1" style="color:blue;">
-                                            ${WorstMonth.getDownSize()}
+                                            ${WorstMonth.getDownVotes().size()}
                                         </div>
                                     </div>
                                 </div>
@@ -189,7 +189,7 @@
                                             <i class="fab fa-hotjar ml-1"></i>
                                         </div>
                                         <div class="md-6 ml-1" style="color:red;">
-                                            ${BestWeek.getUpSize()}
+                                            ${BestWeek.getUpVotes().size()}
                                         </div>
                                     </div>
                                 </div>
@@ -205,7 +205,7 @@
                                             <i class="fas fa-snowflake ml-1"></i>
                                         </div>
                                         <div class="md-6 ml-1" style="color:blue;">
-                                            ${WorstWeek.getDownSize()}
+                                            ${WorstWeek.getDownVotes().size()}
                                         </div>
                                     </div>
                                 </div>
@@ -225,7 +225,7 @@
                                             <i class="fab fa-hotjar ml-1"></i>
                                         </div>
                                         <div class="md-6 ml-1" style="color:red;">
-                                            ${BestDay.getUpSize()}
+                                            ${BestDay.getUpVotes().size()}
                                         </div>
                                     </div>
                                 </div>
@@ -241,7 +241,7 @@
                                             <i class="fas fa-snowflake ml-1"></i>
                                         </div>
                                         <div class="md-6 ml-1" style="color:blue;">
-                                            ${WorstDay.getDownSize()}
+                                            ${WorstDay.getDownVotes().size()}
                                         </div>
                                     </div>
                                 </div>
@@ -273,14 +273,14 @@
                                                     <i class="fab fa-hotjar ml-1"></i>
                                                 </div>
                                                 <div class="md-3 ml-1" style="color:red;">
-                                                    ${vote.getUpSize()}
+                                                    ${vote.getUpVotes().size()}
                                                 </div>
                                                 <div class="md-3 ml-5" style="color:blue;">
                                                     Down Votes
                                                     <i class="fas fa-snowflake ml-1"></i>
                                                 </div>
                                                 <div class="md-3 ml-1" style="color:blue;">
-                                                    ${vote.getDownSize()}
+                                                    ${vote.getDownVotes().size()}
                                                 </div>
                                             </div>
                                         </div>
@@ -297,24 +297,29 @@
                                         <div class="rounded p-3" style="border: 1px solid grey;">
                                             <h4>${vote.getDescription()}</h4>
                                             <p>von: ${vote.getCreator().getUsername()}</p>
-                                            <div test="${alreadyVoted[vote.getId()]}">
+                                            <c:if test="${!vote.userHasAlreadyVoted(currentVoter)}">
+                                                    <div style="color:green;">
+                                                        <p>Stimme jetzt ab!</p>
+                                                    </div>
+                                            </c:if>
+                                            <c:if test="${vote.userHasAlreadyVoted(currentVoter)}">
                                                 <div class="row">
                                                     <div class="md-3 ml-1" style="color:red;">
                                                         Up Votes
                                                         <i class="fab fa-hotjar ml-1"></i>
                                                     </div>
                                                     <div class="md-3 ml-1" style="color:red;">
-                                                        ${vote.getUpSize()}
+                                                        ${vote.getUpVotes().size()}
                                                     </div>
                                                     <div class="md-3 ml-5" style="color:blue;">
                                                         Down Votes
                                                         <i class="fas fa-snowflake ml-1"></i>
                                                     </div>
                                                     <div class="md-3 ml-1" style="color:blue;">
-                                                        ${vote.getDownSize()}
+                                                        ${vote.getDownVotes().size()}
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </c:if>
                                         </div>
                                     </a>
                                 </div>
