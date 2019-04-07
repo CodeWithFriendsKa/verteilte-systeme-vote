@@ -6,12 +6,16 @@ import de.dhbw.vote.common.ejb.VoterBean;
 import de.dhbw.vote.common.ejb.VoterNotFoundException;
 import de.dhbw.vote.common.jpa.Voter;
 import de.dhbw.vote.voting.jpa.UpDownVote;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.imageio.ImageIO;
 /***
  * Beanklasse, welche Datenbankzugriffe für UpDownVotes ermöglicht
  * 
@@ -223,4 +227,20 @@ public class UpDownVoteBean extends EntityBean<UpDownVote, Long>{
                 .getResultList();
         return votes;
     }
+    
+    public byte[] imageToByte(File f){
+        byte[] res = null;
+        try{
+            BufferedImage image = ImageIO.read(f);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(image, "jpg", baos);
+            res = baos.toByteArray();
+        }
+        catch(Exception e) { 
+            e.printStackTrace();
+        }
+        return res;
+    }
+
+
 }

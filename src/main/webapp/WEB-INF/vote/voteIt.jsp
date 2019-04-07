@@ -33,7 +33,7 @@
                 <div class="rounded m-2" style="background-color: white">
                     <div class="text-center">
                         <h2 class="mb-2 p-3">${vote.getCategory()}</h2>
-                        <img src="data:image/jpeg;base64,${base64}"/>
+                        <img src="data:image/jpeg;base64,${base64}" style="max-width: 100%"/>
                         <p class="rounded p-4">${vote.getDescription()}</p>
                     </div>
                     <c:if test="${alreadyVoted == false}">
