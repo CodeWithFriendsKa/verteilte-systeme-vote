@@ -6,6 +6,7 @@ import de.dhbw.vote.common.jpa.Voter;
 import de.dhbw.vote.voting.ejb.UpDownVoteBean;
 import de.dhbw.vote.voting.jpa.UpDownVote;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -67,7 +68,8 @@ public class VoteItServlet extends HttpServlet {
                 logger.debug(vote.toString());
             }
             
-            
+            String base64 = new String(Base64.getEncoder().encode(vote.getImage()), "UTF-8");
+            request.setAttribute("base64", base64);            
             request.setAttribute("vote", vote);
 
             //Variable of already voted
@@ -124,31 +126,26 @@ public class VoteItServlet extends HttpServlet {
         //find current User
         Voter currentVoter = voterBean.getCurrentUser();
 
-        long id = -1;
-        String pathInfo = request.getPathInfo();
-
-        UpDownVote vote = new UpDownVote();
-        if (pathInfo != null) {
-            id = Long.parseLong(pathInfo.split("/")[1]);
-            vote = upDownVoteBean.findById(id);
-        }
+        Long id = Long.parseLong(request.getPathInfo().split("/")[1]);
+        logger.debug("id : " + Double.toString(id));
+        UpDownVote vote = upDownVoteBean.findById(id);
         
         //Set UP vote
         if(request.getParameter("hot") != null){
             logger.debug(vote.toString());
             vote.getUpVotes().add(currentVoter);
-            upDownVoteBean.update(vote);
+            upDownVoteBean.updateWorAround(vote);
+            //upDownVoteBean.update(vote);
             logger.debug(vote.toString());
-           // logger.debug(upDownVoteBean.update(vote).toString());
         }
         
         //Set Down vote
         if(request.getParameter("not") != null){
             logger.debug(vote.toString());
             vote.getDownVotes().add(currentVoter);
-            upDownVoteBean.update(vote);
+            upDownVoteBean.updateWorAround(vote);
+            //upDownVoteBean.update(vote);
             logger.debug(vote.toString());
-           // logger.debug(upDownVoteBean.update(vote).toString());
         }
 
         response.sendRedirect("/vote/app/dashboard/");

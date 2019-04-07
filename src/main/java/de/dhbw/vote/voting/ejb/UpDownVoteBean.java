@@ -34,6 +34,18 @@ public class UpDownVoteBean extends EntityBean<UpDownVote, Long>{
         super(UpDownVote.class);
     }    
     
+    public UpDownVote updateWorAround(UpDownVote upDownVote){
+        this.delete(upDownVote);
+        return this.saveNew(new UpDownVote(
+                upDownVote.getDescription(),
+                upDownVote.getCreator(),
+                upDownVote.getUpVotes(),
+                upDownVote.getDownVotes(),
+                upDownVote.getCategory(),
+                upDownVote.getImage()
+        ));
+    }
+    
     /***
      * 
      * @param username

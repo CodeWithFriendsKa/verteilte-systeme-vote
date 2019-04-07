@@ -9,17 +9,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 /***
@@ -40,19 +43,23 @@ public class UpDownVote implements Serializable {
     private String description;
     @Column(name = "USERNAME", length = 64)
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Voter.class)
-    //@Size(min = 3, max = 64, message = "Der Benutzername muss zwischen fünf und 64 Zeichen lang sein.")
     @NotNull(message = "Der Benutzername darf nicht leer sein.")
     private Voter creator;
-    @ManyToMany(fetch = FetchType.EAGER, targetEntity = Voter.class)
+    @ManyToMany(fetch = FetchType.EAGER, targetEntity = Voter.class, cascade = CascadeType.REFRESH)
+    //@ElementCollection(fetch = FetchType.EAGER, targetClass = Voter.class)
+    //@CollectionTable(name = "VOTER")
     private List<Voter> upVotes;
     @Column(name = "UPSIZE")
     private Integer upSize;
-    @ManyToMany(fetch = FetchType.EAGER, targetEntity = Voter.class)
+    @ManyToMany(fetch = FetchType.EAGER, targetEntity = Voter.class, cascade = CascadeType.REFRESH)
+    //@ElementCollection(fetch = FetchType.EAGER, targetClass = Voter.class)
+    //@CollectionTable(name = "VOTER")
     private List<Voter> downVotes;
     @Column(name = "DOWNSIZE")
     private Integer downSize;
     @Column(name = "IMAGE") 
-    private Image image;
+    @Lob
+    private byte[] image = {};
     @Column(name = "VOTEDATE")
     private Date date;
     @Column(name = "CATEGORY")
@@ -67,14 +74,34 @@ public class UpDownVote implements Serializable {
      * @param image
      * @param category 
      */
-    public UpDownVote(String description, Voter creator, List<Voter> upVotes, List<Voter> downVotes, Image image, Category category) {
+    public UpDownVote(String description, Voter creator, List<Voter> upVotes, List<Voter> downVotes, Category category, byte[] image) {
         this.description = description;
         this.creator = creator;
         this.upVotes = upVotes;
         this.upSize = upVotes.size();
         this.downVotes = downVotes;
         this.downSize = downVotes.size();
+        this.date = DateExtensions.now();
+        this.category = category;
         this.image = image;
+    }    
+    
+    /***
+     * 
+     * @param description
+     * @param creator
+     * @param upVotes
+     * @param downVotes
+     * @param image
+     * @param category 
+     */
+    public UpDownVote(String description, Voter creator, List<Voter> upVotes, List<Voter> downVotes, Category category) {
+        this.description = description;
+        this.creator = creator;
+        this.upVotes = upVotes;
+        this.upSize = upVotes.size();
+        this.downVotes = downVotes;
+        this.downSize = downVotes.size();
         this.date = DateExtensions.now();
         this.category = category;
     }
@@ -93,27 +120,28 @@ public class UpDownVote implements Serializable {
         this.upSize = upVotes.size();
         this.downVotes = downVotes;
         this.downSize = downVotes.size();
-        this.image = null;
         this.date = DateExtensions.now();
         this.category = Category.UNBEKANNT;
     }
     
+
     /***
      * 
      * @param description
      * @param creator
-     * @param category 
+     * @param category
+     * @param image 
      */
-    public UpDownVote(String description, Voter creator, Category category) {
+    public UpDownVote(String description, Voter creator, Category category, byte[] image) {
         this.description = description;
         this.creator = creator;
         this.upVotes = new ArrayList();
         this.upSize = 0;
         this.downVotes = new ArrayList();
         this.downSize = 0;
-        this.image = null;
         this.date = DateExtensions.now();
         this.category = category;
+        this.image = image;
     }
 
     /***
@@ -126,7 +154,6 @@ public class UpDownVote implements Serializable {
         this.upSize = 0;
         this.downVotes = new ArrayList<>();
         this.downSize = 0;
-        this.image = null;
         this.date = DateExtensions.now();
         this.category = Category.UNBEKANNT;
     }
@@ -145,8 +172,8 @@ public class UpDownVote implements Serializable {
     public void setUpVotes(List<Voter> upVotes) {this.upVotes = upVotes; this.upSize = upVotes.size();}
     public List<Voter> getDownVotes() {return downVotes;}
     public void setDownVotes(List<Voter> downVotes) {this.downVotes = downVotes; this.downSize = downVotes.size();}
-    public Image getImage() {return image;}
-    public void setImage(Image image) {this.image = image;}
+    public byte[] getImage() {return image;}
+    public void setImage(byte[] image) {this.image = image;}
     public Date getDate() {return date;}
     public void setDate(Date date) {this.date = date;}
     public Category getCategory() {return category;}
@@ -160,9 +187,6 @@ public class UpDownVote implements Serializable {
         boolean hasVoted = false;
         
         for(int i= 0; i < this.upVotes.size(); i++){
-            System.out.println(this.upVotes.get(i).getUsername().toString());
-            System.out.println(voter.getUsername().toString());
-            System.out.println("" + this.upVotes.get(i).getUsername().toString().equals(voter.getUsername().toString()));
             if(this.upVotes.get(i).getUsername().toString().equals(voter.getUsername().toString())){
                 hasVoted = true;
             }

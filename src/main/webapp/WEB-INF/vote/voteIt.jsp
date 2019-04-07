@@ -33,7 +33,7 @@
                 <div class="rounded m-2" style="background-color: white">
                     <div class="text-center">
                         <h2 class="mb-2 p-3">${vote.getCategory()}</h2>
-                        <img id="picture" src="https://biowikis.com/wp-content/uploads/2018/07/Tina-Halada-Bio-Wiki-Net-Worth.jpg">
+                        <img src="data:image/jpeg;base64,${base64}"/>
                         <p class="rounded p-4">${vote.getDescription()}</p>
                     </div>
                     <c:if test="${alreadyVoted == false}">

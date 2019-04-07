@@ -21,6 +21,7 @@
     <jsp:attribute name="head">
         <link rel="stylesheet" href="<c:url value="../css/voting.css"/>" />
         <script>
+            /**
         function addimage() {
           var img = document.createElement("img");
           img.src = "http://bricksplayground.webs.com/brick.PNG";
@@ -31,7 +32,7 @@
           img.setAttribute("class", class_name);
 
           document.getElementById("myDiagramDiv").appendChild(img);
-           $(img).draggable();
+           $(img).draggable();*/
         }
         </script>   
     </jsp:attribute>
@@ -43,31 +44,29 @@
     <jsp:attribute name="content">
             
     <div id="div" class="p-2" style="padding-top: 5em !important;">
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             <div class="rounded m-2" style="background-color: white">
                 <div class="text-center">
                     <div class="mb-2 p-3">
                         <label for="category-select"><h2>Wähle eine Kategorie:</h2></label>
                               <select id="category" name="category" class="form-control form-control-sm" value="${upDownVote.category}" required>       
                                  <c:forEach items="${categoryList}" var="categoryValue">
-                                      <option value="${categoryValue}">
+                                      <option value="${categoryValue}" ${value == upDownVote.category ? 'selected' : ''}>
                                       ${categoryValue}
                                       </option>
                                  </c:forEach>
                               </select> 
                      </div>
-                     <div class="text-center">                                 
-                     <div id="myDiagramDiv" draggable="true" style="width:600px; height:400px; background-color: #DAE4E4;"></div>
-                     </div>
+                     <div class="text-center">
+                        <input type="file" name="myFile" />
                         <p class="rounded p-4"></p>
                         <input type="text" id="description" name="description" placeholder="Beschreibung einfügen:" value="${upDownVote.description}">
-                 </div>
-                 <div class="text-center">
-                     <button id="submit-button" type="submit" class="btn btn-success">Speichern</button>
-                </div>
-             </div> 
-         </form>            
-     </div>     
+                        <button id="submit-button" type="submit" class="btn btn-success">Speichern</button>                         
+                     </div>
+                </div> 
+            </div> 
+         </form>                
+    </div>
         
     </jsp:attribute>
 </template:base>

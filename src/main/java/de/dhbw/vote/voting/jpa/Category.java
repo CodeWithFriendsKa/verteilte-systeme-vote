@@ -1,4 +1,7 @@
 package de.dhbw.vote.voting.jpa;
+
+
+
 /***
  * Enumeration für eine UpDownVoteKategorie
  * 

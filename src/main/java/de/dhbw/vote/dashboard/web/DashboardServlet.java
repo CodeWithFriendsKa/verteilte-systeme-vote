@@ -4,13 +4,10 @@ import de.dhbw.vote.common.CustomLogger;
 import de.dhbw.vote.common.ejb.VoterBean;
 import de.dhbw.vote.common.jpa.Voter;
 import de.dhbw.vote.voting.ejb.UpDownVoteBean;
-import de.dhbw.vote.voting.ejb.UpDownVoteNotFoundException;
 import de.dhbw.vote.voting.jpa.UpDownVote;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -59,12 +56,8 @@ public class DashboardServlet extends HttpServlet {
                 myDownVotes += votes.get(i).getDownVotes().size();
             }
 
-            
             //Find all votes
             List<UpDownVote> allVotes = upDownVoteBean.findAll();
-            allVotes.forEach(v -> logger.debug(v.toString() + "TEST999"));
-            
-
             
             request.setAttribute("allVotes", allVotes);
             request.setAttribute("myUpVotes", myUpVotes);

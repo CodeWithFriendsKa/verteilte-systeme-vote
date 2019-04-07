@@ -22,6 +22,8 @@ public class VoteRestAPI extends Application{
     @Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> resources = new java.util.HashSet<>();
+        resources.add(VoterResource.class);
+        resources.add(UpDownVoteResource.class);
 
         return resources;
     }
