@@ -28,7 +28,16 @@ Um die Anwendung zu starten sind folgende Schritte auszuführen
 1.	Repository clonen
 2.	Server und DB in Netbeans einbinden
 3.	DB starten
-4.	Server starten / Applikation starten
-5.	Index.html
-6.	https:\\localhost:8443\vote   (am besten in Firefox öffnen)
+4.  die Variable USER_PATH in der Datei Createdemo.java anpassen:
+4.1  Die Variable ist ein String und enthält den absoluten Pfad, bis einschließlich zu dem Ordner, indem die Anwendung liegt
+4.2  Bitte dort den absoluten Pfad einfügen
+4.3  Wenn der Pfad richtig angegeben wurde, können die Testdaten richtig angelegt werden, sodass auch auch initial Voter und UpDownVotes angelegt werden können. Dies sollte das Testen und Durch die Anwendung klicken erleichtern
+5.	Server starten / Applikation starten
+6.	Index.html
+7.	https:\\localhost:8443\vote   (am besten in Firefox öffnen)
+
+Einloggen oder Registrieren
+Um die Anwendung zu benutzen muss man ein registierter Nutzer sein. Wir haben schon 10 Dummy-Benutzer angelegt. Diese haben die  durchnummerierten Benutzernamen von "MaMu0" bis "MaMu9" und haben alle dasselbe Passwort "123". Entweder man verwendet einen dieser Benutzer oder man Registiert sich selbst. Der Vorteil bei den schon angelegten Benutzern ist, dass diese per Zufallsvariable zugeteilte Votings haben. Wenn man sich neu registriert, dann sieht man auf seinem Dashboard noch nicht so viel. Aber man kann ja neue Votings anlegen und auch abstimmen.
+
+Viel Spaß beim voten!
 
