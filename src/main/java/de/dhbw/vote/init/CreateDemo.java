@@ -36,7 +36,7 @@ public class CreateDemo {
     //TODO:
     //Bitte bei USER_PATH den eigenen absoluten Pfad angeben, bis zu dem Projekt
     private static final String PROJECT_PATH = "verteilte-systeme-vote/src/main/java/de/dhbw/vote/init/img/";
-    private static final String USER_PATH = "C:/Users/chp/Documents/StudiumWirtschaftsinformatik/Semester4/VerteilteSysteme/Projekte/"; 
+    private static final String USER_PATH = "/home/codekeks/Downloads/"; 
     /**
      * Diese Methode führt folgende Schritte aus:
      * 1) lösche alle "alten" Daten aus der Datenbank

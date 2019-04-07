@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -36,15 +37,23 @@ public class UpDownVoteResource {
     private final CustomLogger logger = new CustomLogger(UpDownVote.class);
     @EJB
     private UpDownVoteBean upDownVoteBean;
+    @EJB
+    private AuthBean authBean;
     
-    /**
+    /***
      * 
+     * @param base64
      * @return 
      */
     @GET
-    public List<UpDownVote> getAllUpDownVotes(){
+    public List<UpDownVote> getAllUpDownVotes(@HeaderParam("Authorization") String base64){
         try {
-            return upDownVoteBean.findAll();
+            if(authBean.checkAuth(base64)){
+                return upDownVoteBean.findAll();
+            }
+            else{
+                return null;
+            }  
         } catch (Exception e) {
             logger.error("ERROR", e);
             return null;
@@ -54,14 +63,19 @@ public class UpDownVoteResource {
     /***
      * 
      * @param username
+     * @param base64
      * @return 
      */
     @GET
     @Path("{username}")
-    public UpDownVote getUpDownVoteByUsername(@PathParam("username") String username){
+    public UpDownVote getUpDownVoteByUsername(@PathParam("username") String username, @HeaderParam("Authorization") String base64){
         try {
-            return upDownVoteBean.findVotesByUsername(username).get(0);
-            
+            if(authBean.checkAuth(base64)){
+                return upDownVoteBean.findVotesByUsername(username).get(0);
+            }
+            else{
+                return null;
+            }
         } catch (Exception e) {
             logger.error("ERROR", e);
             return null;
